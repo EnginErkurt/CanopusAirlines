@@ -1,0 +1,378 @@
+        html { 
+            scroll-behavior: smooth;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #EEEEEE;
+            color: #222831;
+        }
+
+        header {
+            background-color: #222831;
+            padding: 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #00ADB5;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #EEEEEE;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00ADB5;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .btn-signin {
+            background-color: transparent;
+            color: #00ADB5;
+            border: 2px solid #00ADB5;
+        }
+
+        .btn-signin:hover {
+            background-color: #00ADB5;
+            color: #222831;
+        }
+
+        .btn-signup {
+            background-color: #00ADB5;
+            color: #222831;
+        }
+
+        .btn-signup:hover {
+            background-color: #00969e;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #222831 0%, #393E46 100%);
+            color: #EEEEEE;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #00ADB5;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: -50px auto 60px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 100;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .contact-form {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .contact-form h2 {
+            color: #222831;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #393E46;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #EEEEEE;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00ADB5;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            background-color: #00ADB5;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #00969e;
+        }
+
+        .contact-info {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .contact-info h2 {
+            color: #222831;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: start;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #EEEEEE;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .info-item:hover {
+            transform: translateX(10px);
+        }
+
+        .info-icon {
+            font-size: 32px;
+            margin-right: 20px;
+            color: #00ADB5;
+        }
+
+        .info-content h3 {
+            color: #222831;
+            margin-bottom: 5px;
+        }
+
+        .info-content p {
+            color: #393E46;
+            line-height: 1.6;
+        }
+
+        .offices {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .offices h2 {
+            text-align: center;
+            font-size: 36px;
+            color: #222831;
+            margin-bottom: 40px;
+        }
+
+        .office-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .office-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .office-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .office-card h3 {
+            color: #00ADB5;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .office-card p {
+            color: #393E46;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .faq {
+            background-color: #393E46;
+            padding: 60px 20px;
+            margin-top: 60px;
+        }
+
+        .faq-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .faq h2 {
+            text-align: center;
+            color: #EEEEEE;
+            font-size: 36px;
+            margin-bottom: 40px;
+        }
+
+        .faq-item {
+            background-color: #222831;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .faq-item:hover {
+            transform: translateX(10px);
+        }
+
+        .faq-question {
+            color: #00ADB5;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .faq-answer {
+            color: #EEEEEE;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        footer {
+            background-color: #222831;
+            color: #EEEEEE;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h3 {
+            color: #00ADB5;
+            margin-bottom: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #EEEEEE;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #00ADB5;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #393E46;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }

@@ -1,0 +1,261 @@
+﻿
+@{
+    ViewBag.Title = "Baggage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link href="~/Content/baggage.css" rel="stylesheet" />
+}
+
+<div class="hero">
+    <h1>Baggage Information</h1>
+    <p>Everything you need to know about baggage allowances, restrictions, and guidelines.</p>
+</div>
+
+<div class="content-container">
+    <div class="baggage-section">
+        <h2>Baggage Allowances</h2>
+        <p>Your baggage allowance depends on your ticket class and destination. Review the details below to pack accordingly.</p>
+
+        <div class="allowance-cards">
+            <div class="allowance-card">
+                <div class="baggage-icon">🎒</div>
+                <h3>Economy Class</h3>
+                <div class="allowance-detail">
+                    <h4>Carry-on Baggage</h4>
+                    <p><strong>1 piece</strong> up to <strong>8 kg</strong></p>
+                    <p class="dimension">Max dimensions: 55 x 40 x 20 cm</p>
+                </div>
+                <div class="allowance-detail">
+                    <h4>Checked Baggage</h4>
+                    <p><strong>1 piece</strong> up to <strong>20 kg</strong></p>
+                    <p class="dimension">Max dimensions: 158 cm (total)</p>
+                </div>
+            </div>
+
+            <div class="allowance-card highlight">
+                <div class="baggage-icon">💼</div>
+                <h3>Business Class</h3>
+                <div class="allowance-detail">
+                    <h4>Carry-on Baggage</h4>
+                    <p><strong>2 pieces</strong> up to <strong>12 kg</strong></p>
+                    <p class="dimension">Max dimensions: 55 x 40 x 20 cm each</p>
+                </div>
+                <div class="allowance-detail">
+                    <h4>Checked Baggage</h4>
+                    <p><strong>2 pieces</strong> up to <strong>30 kg each</strong></p>
+                    <p class="dimension">Max dimensions: 158 cm (total) each</p>
+                </div>
+            </div>
+
+            <div class="allowance-card">
+                <div class="baggage-icon">🧒</div>
+                <h3>Children & Infants</h3>
+                <div class="allowance-detail">
+                    <h4>Children (2-12 years)</h4>
+                    <p>Same allowance as adults</p>
+                    <p class="dimension">Plus 1 stroller or car seat (free)</p>
+                </div>
+                <div class="allowance-detail">
+                    <h4>Infants (0-2 years)</h4>
+                    <p><strong>1 piece</strong> up to <strong>10 kg</strong></p>
+                    <p class="dimension">Plus 1 stroller and 1 car seat (free)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="baggage-section">
+        <h2>Excess Baggage Fees</h2>
+        <div class="fees-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Excess Weight</th>
+                        <th>Domestic Flights</th>
+                        <th>International Flights</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0-5 kg extra</td>
+                        <td>$15 per kg</td>
+                        <td>$25 per kg</td>
+                    </tr>
+                    <tr>
+                        <td>5-10 kg extra</td>
+                        <td>$20 per kg</td>
+                        <td>$30 per kg</td>
+                    </tr>
+                    <tr>
+                        <td>10+ kg extra</td>
+                        <td>$25 per kg</td>
+                        <td>$40 per kg</td>
+                    </tr>
+                    <tr>
+                        <td>Additional piece</td>
+                        <td>$50 per piece</td>
+                        <td>$100 per piece</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="table-note">💡 Tip: Pre-purchase excess baggage online at 20% discount!</p>
+        </div>
+    </div>
+
+    <div class="baggage-section">
+        <h2>Prohibited Items</h2>
+        <div class="prohibited-grid">
+            <div class="prohibited-card dangerous">
+                <h3>🚫 Strictly Prohibited</h3>
+                <ul>
+                    <li>Explosives and fireworks</li>
+                    <li>Compressed gases</li>
+                    <li>Flammable liquids and solids</li>
+                    <li>Toxic and infectious substances</li>
+                    <li>Radioactive materials</li>
+                    <li>Corrosive materials</li>
+                    <li>Weapons and ammunition</li>
+                </ul>
+            </div>
+
+            <div class="prohibited-card restricted">
+                <h3>⚠️ Carry-on Restrictions</h3>
+                <ul>
+                    <li>Liquids over 100ml</li>
+                    <li>Sharp objects (scissors, knives)</li>
+                    <li>Sports equipment (bats, clubs)</li>
+                    <li>Tools (drills, saws)</li>
+                    <li>Lighters (max 1 on person)</li>
+                    <li>Power banks over 20,000mAh</li>
+                    <li>E-cigarettes (carry-on only)</li>
+                </ul>
+            </div>
+
+            <div class="prohibited-card special">
+                <h3>✅ Special Items</h3>
+                <ul>
+                    <li>Laptops and tablets (declare at security)</li>
+                    <li>Medical equipment (with documentation)</li>
+                    <li>Baby food and formula (in reasonable quantities)</li>
+                    <li>Duty-free liquids (sealed bags)</li>
+                    <li>Musical instruments (extra seat purchase)</li>
+                    <li>Sports equipment (advance notice)</li>
+                    <li>Pets (in approved carriers)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="baggage-section">
+        <h2>Special Baggage</h2>
+        <div class="special-items">
+            <div class="special-item">
+                <div class="special-icon">🎿</div>
+                <h3>Sports Equipment</h3>
+                <p>Ski equipment, surfboards, golf bags, and bicycles accepted with prior notification.</p>
+                <p class="special-fee">Additional fee: $50-$150 depending on item</p>
+            </div>
+
+            <div class="special-item">
+                <div class="special-icon">🎸</div>
+                <h3>Musical Instruments</h3>
+                <p>Small instruments can be carried on board. Large instruments require an extra seat purchase.</p>
+                <p class="special-fee">Contact us 48 hours before departure</p>
+            </div>
+
+            <div class="special-item">
+                <div class="special-icon">🐕</div>
+                <h3>Pets</h3>
+                <p>Small pets (up to 8 kg including carrier) allowed in cabin. Larger pets travel in cargo.</p>
+                <p class="special-fee">Fee: $100-$300 depending on size and route</p>
+            </div>
+
+            <div class="special-item">
+                <div class="special-icon">♿</div>
+                <h3>Mobility Aids</h3>
+                <p>Wheelchairs, walkers, and other mobility devices transported free of charge.</p>
+                <p class="special-fee">No additional fee - priority handling</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="baggage-section">
+        <h2>Lost or Damaged Baggage</h2>
+        <div class="info-boxes">
+            <div class="info-box-baggage">
+                <h3>🔍 Lost Baggage</h3>
+                <p>Report lost baggage immediately at the airport baggage service counter. We'll track your baggage and deliver it to your address once found.</p>
+                <ul>
+                    <li>Report within 7 days for domestic flights</li>
+                    <li>Report within 21 days for international flights</li>
+                    <li>Compensation up to $1,500 per passenger</li>
+                </ul>
+            </div>
+
+            <div class="info-box-baggage">
+                <h3>💔 Damaged Baggage</h3>
+                <p>Inspect your baggage upon arrival. Report any damage before leaving the airport to be eligible for compensation.</p>
+                <ul>
+                    <li>Report immediately at baggage claim</li>
+                    <li>Take photos of the damage</li>
+                    <li>Keep your baggage tag</li>
+                </ul>
+            </div>
+
+            <div class="info-box-baggage">
+                <h3>⏰ Delayed Baggage</h3>
+                <p>If your baggage is delayed, we'll provide emergency essentials and deliver your baggage as soon as possible.</p>
+                <ul>
+                    <li>Emergency kit provided within 6 hours</li>
+                    <li>Daily allowance for necessities</li>
+                    <li>Free delivery to your address</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="tips-section">
+        <h2>Packing Tips</h2>
+        <div class="tips-grid">
+            <div class="tip-card">
+                <div class="tip-number">1</div>
+                <h4>Label Your Baggage</h4>
+                <p>Use durable tags with your name, phone, and email. Consider adding a colorful ribbon to identify your bag easily.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-number">2</div>
+                <h4>Pack Smart</h4>
+                <p>Place heavy items at the bottom. Use packing cubes for organization. Roll clothes to save space.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-number">3</div>
+                <h4>Secure Valuables</h4>
+                <p>Keep valuables, medications, and important documents in your carry-on baggage.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-number">4</div>
+                <h4>Lock Your Baggage</h4>
+                <p>Use TSA-approved locks for checked baggage. This allows security to inspect if needed.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-number">5</div>
+                <h4>Weigh Before You Go</h4>
+                <p>Use a luggage scale at home to avoid excess baggage fees at the airport.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-number">6</div>
+                <h4>Take Photos</h4>
+                <p>Photograph your baggage and contents before checking in. This helps with claims if needed.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <h2>Need More Information?</h2>
+        <p>Our customer service team is ready to help with any baggage-related questions.</p>
+        <button class="btn-contact" onclick="window.location.href='@Url.Action("Contact", "Home")'">Contact Us</button>
+    </div>
+</div>
+

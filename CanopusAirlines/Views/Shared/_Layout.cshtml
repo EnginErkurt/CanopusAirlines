@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Canopus Airlines</title>
+
+    @Styles.Render("~/Content/css")
+
+    <link href="~/Content/canopus_airlines.css" rel="stylesheet" />
+
+    @RenderSection("Styles", required: false)
+
+    @Scripts.Render("~/bundles/modernizr")
+
+    <style>
+        .footer-section ul {
+            padding-left: 0;
+            margin-left: 0;
+            list-style-type: none;
+        }
+
+        .footer-section li {
+            padding-left: 0;
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="@Url.Action("Index", "Home")" class="logo">
+                <img src="~/Images/canopus_logo.png" alt="Canopus Airlines Logo">
+                Canopus Airlines
+            </a>
+
+            <div class="nav-links">
+                <a href="@Url.Action("Index", "Home")">Home</a>
+                <a href="@Url.Action("About", "Home")">About Us</a>
+                <a href="@Url.Action("Contact", "Home")">Contact</a>
+            </div>
+
+            <div class="auth-buttons">
+                @if (Request.IsAuthenticated)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", style = "display:inline;" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <span style="margin-right:10px;">Merhaba, @User.Identity.Name</span>
+                        <button type="submit" class="btn btn-signin">Log Off</button>
+                    }
+                }
+                else
+                {
+                    <a href="@Url.Action("Login", "Account")" class="btn btn-signin">Sign In</a>
+                    <a href="@Url.Action("Register", "Account")" class="btn btn-signup">Sign Up</a>
+                }
+            </div>
+        </nav>
+    </header>
+    <div class="main-content-wrapper">
+        @RenderBody()
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Canopus Airlines</h3>
+                <p>Take a step closer to the sky.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Links</h3>
+                <ul>
+                    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li><a href="@Url.Action("About", "Home")">About Us</a></li>
+                    <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="@Url.Action("Contact", "Home")#sss">FAQ</a></li>
+                    <li><a href="@Url.Action("Baggage", "Home")">Baggage Information</a></li>
+                    <li><a href="@Url.Action("Cancellation", "Home")">Cancellation & Refund</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li>Tel: +90 123 456 7890</li>
+                    <li>Email: canopusairlines@gmail.com</li>
+                    <li>Adres: Istanbul, Turkiye</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; @DateTime.Now.Year Canopus Airlines. All rights reserved.</p>
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="~/Scripts/canopus_airlines.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

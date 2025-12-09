@@ -1,0 +1,141 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+
+@section Styles {
+    <link href="~/Content/canopus_contact.css" rel="stylesheet" />
+}
+
+<div class="hero">
+    <h1>Contact</h1>
+    <p>We are here to help you. Please contact us with your questions, suggestions, or feedback.</p>
+</div>
+
+<div class="contact-container">
+    <div class="contact-grid">
+
+        <div class="contact-form">
+            <h2>Contact Us</h2>
+            <form onsubmit="return handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Name Surname *</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail *</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone">
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject *</label>
+                    <select id="subject" required>
+                        <option value="">Please select</option>
+                        <option value="complaint">Complaint</option>
+                        <option value="suggestion">Suggestion</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message *</label>
+                    <textarea id="message" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Send</button>
+            </form>
+        </div>
+
+        <div class="contact-info">
+            <h2>Contact Information</h2>
+
+            <div class="info-item">
+                <div class="info-icon">📞</div>
+                <div class="info-content">
+                    <h3>Phone</h3>
+                    <p>+90 123 456 7890</p>
+                    <p>7/24 Customer Service</p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">✉️</div>
+                <div class="info-content">
+                    <h3>E-mail</h3>
+                    <p>canopusairlines@gmail.com</p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">📍</div>
+                <div class="info-content">
+                    <h3>Address</h3>
+                    <p>E5 Karayolu Üzeri Ataköy Yerleşkesi, Ataköy 7-8-9-10. Kısım, 34158 Bakırköy/İstanbul, Türkiye</p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">🕐</div>
+                <div class="info-content">
+                    <h3>Office Hours</h3>
+                    <p>Monday - Friday: 08:00 - 20:00</p>
+                    <p>Saturday: 09:00 - 18:00</p>
+                    <p>Sunday: 10:00 - 17:00</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="offices">
+    <h2>Our offices</h2>
+    <div class="office-grid">
+        <div class="office-card">
+            <h3>Istanbul Office</h3>
+            <p><strong>Address:</strong> İstanbul Airport, Arnavutköy, İstanbul</p>
+        </div>
+        <div class="office-card">
+            <h3>Ankara Office</h3>
+            <p><strong>Address:</strong> Esenboğa Airport, Balıkhisar, Ankara</p>
+        </div>
+        <div class="office-card">
+            <h3>Izmir Office</h3>
+            <p><strong>Address:</strong> Adnan Menderes Airport, Gaziemir, İzmir</p>
+        </div>
+    </div>
+</div>
+
+<div class="faq" id="sss">
+    <div class="faq-content">
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">How can I cancel my reservation?</div>
+            <div class="faq-answer">You can cancel your reservation via the "My Reservations" section on our website or by calling our customer service. Cancellation conditions vary depending on your ticket type.</div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">How much baggage allowance do I have?</div>
+            <div class="faq-answer">You are allowed 20 kg of checked baggage in Economy Class and 30 kg in Business Class. Carry-on baggage is permitted up to 8 kg.</div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">When does online check-in start?</div>
+            <div class="faq-answer">Online check-in begins 24 hours before your flight.</div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">What happens if my flight is delayed?</div>
+            <div class="faq-answer">In the event of flight delays, you will be notified and provided with services such as meals and accommodation when necessary. If the delay exceeds 3 hours, you may get a refund.</div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">What should I do if I need special assistance?</div>
+            <div class="faq-answer">Passengers requiring special assistance must contact our customer service during the reservation process or at least 48 hours prior to the flight.</div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/canopus_contact.js"></script>
+}

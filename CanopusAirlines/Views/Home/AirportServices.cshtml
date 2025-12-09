@@ -1,0 +1,294 @@
+﻿
+@{
+    ViewBag.Title = "AirportServices";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link href="~/Content/airport_services.css" rel="stylesheet" />
+}
+
+<div class="hero">
+    <h1>Airport Services</h1>
+    <p>Discover our premium services designed to make your airport experience comfortable and convenient.</p>
+</div>
+
+<div class="content-container">
+
+    <div class="services-section">
+        <h2>Our Premium Services</h2>
+        <p>Experience world-class amenities and services at Canopus Airlines partner airports worldwide.</p>
+
+        <div class="service-cards">
+            <div class="service-card premium">
+                <div class="service-image lounge-img"></div>
+                <div class="service-content">
+                    <div class="service-badge">Premium</div>
+                    <h3>Business Lounge</h3>
+                    <p>Relax in our exclusive business lounges featuring comfortable seating, complimentary refreshments, high-speed Wi-Fi, and business facilities.</p>
+                    <ul class="service-features">
+                        <li>✓ Gourmet buffet and bar</li>
+                        <li>✓ Private workstations</li>
+                        <li>✓ Shower facilities</li>
+                        <li>✓ Entertainment systems</li>
+                    </ul>
+                    <div class="service-access">
+                        <strong>Access:</strong> Business Class passengers, Premium members
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-image checkin-img"></div>
+                <div class="service-content">
+                    <h3>Fast Track Check-in</h3>
+                    <p>Skip the queues with our dedicated fast-track check-in counters and security lanes for a seamless airport experience.</p>
+                    <ul class="service-features">
+                        <li>✓ Priority check-in counters</li>
+                        <li>✓ Express security screening</li>
+                        <li>✓ Dedicated baggage drop</li>
+                        <li>✓ Personal assistance</li>
+                    </ul>
+                    <div class="service-access">
+                        <strong>Access:</strong> Business Class, available for purchase
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-image vip-img"></div>
+                <div class="service-content">
+                    <h3>VIP Meet & Greet</h3>
+                    <p>Enjoy personalized assistance from arrival to boarding with our exclusive VIP meet and greet service.</p>
+                    <ul class="service-features">
+                        <li>✓ Personal assistant</li>
+                        <li>✓ Fast-track immigration</li>
+                        <li>✓ Buggy transportation</li>
+                        <li>✓ Priority boarding</li>
+                    </ul>
+                    <div class="service-access">
+                        <strong>Price:</strong> Starting from $150 per service
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-image parking-img"></div>
+                <div class="service-content">
+                    <h3>Airport Parking</h3>
+                    <p>Convenient parking options with special rates for Canopus Airlines passengers at our partner airports.</p>
+                    <ul class="service-features">
+                        <li>✓ Short & long-term parking</li>
+                        <li>✓ Covered parking available</li>
+                        <li>✓ 24/7 security monitoring</li>
+                        <li>✓ Online pre-booking discount</li>
+                    </ul>
+                    <div class="service-access">
+                        <strong>Rates:</strong> From $10/day with online booking
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-image transfer-img"></div>
+                <div class="service-content">
+                    <h3>Airport Transfers</h3>
+                    <p>Book comfortable and reliable transportation between the airport and your destination.</p>
+                    <ul class="service-features">
+                        <li>✓ Private car service</li>
+                        <li>✓ Shared shuttle buses</li>
+                        <li>✓ Professional drivers</li>
+                        <li>✓ 24/7 availability</li>
+                    </ul>
+                    <div class="service-access">
+                        <strong>Book:</strong> Online or via mobile app
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-image special-img"></div>
+                <div class="service-content">
+                    <h3>Special Assistance</h3>
+                    <p>Comprehensive support for passengers with reduced mobility or special needs.</p>
+                    <ul class="service-features">
+                        <li>✓ Wheelchair assistance</li>
+                        <li>✓ Medical equipment handling</li>
+                        <li>✓ Escort services</li>
+                        <li>✓ Priority boarding</li>
+                    </ul>
+                    <div class="service-access">
+                        <strong>Request:</strong> At least 48 hours in advance
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="facilities-section">
+        <h2>Airport Facilities</h2>
+        <div class="facilities-grid">
+            <div class="facility-card">
+                <div class="facility-icon">🛍️</div>
+                <h3>Duty-Free Shopping</h3>
+                <p>Browse through a wide selection of duty-free products including perfumes, cosmetics, electronics, and local souvenirs.</p>
+            </div>
+
+            <div class="facility-card">
+                <div class="facility-icon">🍽️</div>
+                <h3>Restaurants & Cafes</h3>
+                <p>Enjoy a variety of dining options from quick snacks to fine dining experiences featuring local and international cuisine.</p>
+            </div>
+
+            <div class="facility-card">
+                <div class="facility-icon">📶</div>
+                <h3>Free Wi-Fi</h3>
+                <p>Stay connected with complimentary high-speed Wi-Fi available throughout all terminal areas.</p>
+            </div>
+
+            <div class="facility-card">
+                <div class="facility-icon">💱</div>
+                <h3>Currency Exchange</h3>
+                <p>Convenient currency exchange services and ATMs located throughout the airport.</p>
+            </div>
+
+            <div class="facility-card">
+                <div class="facility-icon">🎮</div>
+                <h3>Kids Play Area</h3>
+                <p>Supervised play areas designed to keep children entertained while waiting for your flight.</p>
+            </div>
+
+            <div class="facility-card">
+                <div class="facility-icon">💼</div>
+                <h3>Business Center</h3>
+                <p>Fully equipped business centers with printing, copying, and conference room facilities.</p>
+            </div>
+
+            <div class="facility-card">
+                <div class="facility-icon">🛏️</div>
+                <h3>Sleeping Pods</h3>
+                <p>Private sleeping pods available for rent, perfect for long layovers or delayed flights.</p>
+            </div>
+
+            <div class="facility-card">
+                <div class="facility-icon">🚿</div>
+                <h3>Shower Facilities</h3>
+                <p>Clean and modern shower facilities to refresh before or after your journey.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="guide-section">
+        <h2>Airport Navigation Guide</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-icon">✈️</div>
+                <div class="timeline-content">
+                    <h3>Arrival at Airport</h3>
+                    <p><strong>Recommended:</strong> 2-3 hours before departure</p>
+                    <ul>
+                        <li>Have your passport and booking confirmation ready</li>
+                        <li>Locate your airline's check-in area</li>
+                        <li>Use airport maps or ask information desk</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">🎫</div>
+                <div class="timeline-content">
+                    <h3>Check-in & Baggage Drop</h3>
+                    <p><strong>Closes:</strong> 45 minutes before departure</p>
+                    <ul>
+                        <li>Complete online check-in to save time</li>
+                        <li>Print or download your boarding pass</li>
+                        <li>Drop your checked baggage at dedicated counters</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">🔒</div>
+                <div class="timeline-content">
+                    <h3>Security Screening</h3>
+                    <p><strong>Allow:</strong> 15-30 minutes</p>
+                    <ul>
+                        <li>Remove laptops and liquids from carry-on</li>
+                        <li>Take off jackets, belts, and shoes if required</li>
+                        <li>Have boarding pass and ID ready</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">🛂</div>
+                <div class="timeline-content">
+                    <h3>Immigration (International)</h3>
+                    <p><strong>Required for:</strong> International flights</p>
+                    <ul>
+                        <li>Present passport and boarding pass</li>
+                        <li>Answer standard security questions</li>
+                        <li>Use automated gates if eligible</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">🚪</div>
+                <div class="timeline-content">
+                    <h3>Boarding Gate</h3>
+                    <p><strong>Boarding starts:</strong> 40 minutes before departure</p>
+                    <ul>
+                        <li>Locate your gate on departure board</li>
+                        <li>Listen for boarding announcements</li>
+                        <li>Board when your zone is called</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tips-box">
+        <h2>Pro Travel Tips</h2>
+        <div class="tips-container">
+            <div class="tip-item">
+                <span class="tip-emoji">⏰</span>
+                <div>
+                    <strong>Check flight status</strong>
+                    <p>Monitor your flight status online or via app before leaving home</p>
+                </div>
+            </div>
+            <div class="tip-item">
+                <span class="tip-emoji">📱</span>
+                <div>
+                    <strong>Download airline app</strong>
+                    <p>Access boarding passes, gate changes, and real-time updates</p>
+                </div>
+            </div>
+            <div class="tip-item">
+                <span class="tip-emoji">💳</span>
+                <div>
+                    <strong>Keep documents accessible</strong>
+                    <p>Store passport, boarding pass, and credit cards in easy-to-reach location</p>
+                </div>
+            </div>
+            <div class="tip-item">
+                <span class="tip-emoji">🔋</span>
+                <div>
+                    <strong>Charge devices</strong>
+                    <p>Ensure phones and tablets are fully charged before traveling</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-section">
+        <h2>Need Assistance?</h2>
+        <p>Our airport staff is available 24/7 to help with any questions or concerns.</p>
+        <div class="contact-buttons">
+            <button class="btn-contact" onclick="window.location.href='canopus_contact.html'">Contact Airport Services</button>
+            <button class="btn-secondary-contact" onclick="alert('Chat support coming soon!')">Live Chat Support</button>
+        </div>
+    </div>
+
+</div>

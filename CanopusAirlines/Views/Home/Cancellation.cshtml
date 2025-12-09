@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewBag.Title = "Cancellation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link href="~/Content/cancellation_refund.css" rel="stylesheet" />
+}
+
+<div class="hero">
+    <h1>Cancellation & Refund</h1>
+    <p>Learn about our flexible cancellation policies and refund procedures.</p>
+</div>
+
+<div class="content-container">
+    <div class="policy-section">
+        <h2>Cancellation Policy</h2>
+        <p>At Canopus Airlines, we understand that travel plans can change. We offer flexible cancellation options depending on your ticket type and timing.</p>
+
+        <div class="policy-cards">
+            <div class="policy-card">
+                <div class="policy-icon">🎫</div>
+                <h3>Economy Class</h3>
+                <ul>
+                    <li>Free cancellation up to 24 hours before departure</li>
+                    <li>50% refund between 24-48 hours before departure</li>
+                    <li>25% refund between 48-72 hours before departure</li>
+                    <li>No refund within 72 hours of departure</li>
+                </ul>
+            </div>
+
+            <div class="policy-card">
+                <div class="policy-icon">💼</div>
+                <h3>Business Class</h3>
+                <ul>
+                    <li>Free cancellation up to 48 hours before departure</li>
+                    <li>75% refund between 48-72 hours before departure</li>
+                    <li>50% refund within 72 hours of departure</li>
+                    <li>Flexible rebooking options available</li>
+                </ul>
+            </div>
+
+            <div class="policy-card highlight">
+                <div class="policy-icon">⭐</div>
+                <h3>Flexible Ticket</h3>
+                <ul>
+                    <li>100% refund at any time before departure</li>
+                    <li>Free date changes unlimited times</li>
+                    <li>Free route changes (subject to availability)</li>
+                    <li>Priority rebooking service</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="policy-section">
+        <h2>How to Cancel Your Booking</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Login to Your Account</h3>
+                    <p>Access your booking through "My Reservations" section on our website or mobile app.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Select Your Flight</h3>
+                    <p>Find the booking you wish to cancel and click on "Manage Booking".</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Request Cancellation</h3>
+                    <p>Click on "Cancel Booking" and confirm your cancellation request.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Receive Confirmation</h3>
+                    <p>You'll receive a cancellation confirmation email with refund details within 24 hours.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="policy-section">
+        <h2>Refund Process</h2>
+        <div class="info-box">
+            <h3>Processing Time</h3>
+            <p>Refunds are typically processed within <strong>7-14 business days</strong> from the date of cancellation approval. The exact time may vary depending on your payment method and bank.</p>
+        </div>
+
+        <div class="info-box">
+            <h3>Refund Method</h3>
+            <p>Refunds will be credited back to the original payment method used during booking. If you paid by credit card, the refund will appear on your card statement within 2-3 billing cycles.</p>
+        </div>
+
+        <div class="info-box">
+            <h3>Special Circumstances</h3>
+            <p>In case of flight cancellations by Canopus Airlines, weather disruptions, or other extraordinary circumstances, passengers are entitled to a full refund regardless of ticket type.</p>
+        </div>
+    </div>
+
+    <div class="policy-section">
+        <h2>Important Notes</h2>
+        <div class="notes-grid">
+            <div class="note-card">
+                <h4>⚠️ Non-Refundable Fees</h4>
+                <p>Airport taxes and service fees may be non-refundable depending on local regulations.</p>
+            </div>
+            <div class="note-card">
+                <h4>📅 Date Changes</h4>
+                <p>Changing your flight date is often more economical than cancellation. Check availability before canceling.</p>
+            </div>
+            <div class="note-card">
+                <h4>🎁 Travel Insurance</h4>
+                <p>Consider purchasing travel insurance for additional protection against unexpected changes.</p>
+            </div>
+            <div class="note-card">
+                <h4>📞 Need Help?</h4>
+                <p>Our customer service team is available 24/7 to assist with cancellations and refunds.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <h2>Need to Cancel Your Booking?</h2>
+        <p>Manage your reservation online or contact our customer service team for assistance.</p>
+        <div class="cta-buttons">
+            <button class="btn-primary" onclick="alert('My Reservations page coming soon!')">Manage Booking</button>
+            <button class="btn-secondary" onclick="window.location.href='@Url.Action("Contact", "Home")'">Contact Support</button>
+        </div>
+    </div>
+</div>
+

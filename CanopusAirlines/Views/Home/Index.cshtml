@@ -1,0 +1,153 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+<div class="slideshow-container">
+    <div class="slide active">
+        <h1>Canopus Havayollarına hoşgeldiniz.</h1>
+        <p>Yolculuk nereye?</p>
+    </div>
+    <div class="slide">
+        <h1>Welcome to Canopus Airlines.</h1>
+        <p>Where are you heading?</p>
+    </div>
+    <div class="slide">
+        <h1>Willkommen bei Canopus Airlines.</h1>
+        <p>Wohin geht die Reise?</p>
+    </div>
+    <div class="slide">
+        <h1>Bienvenido a Canopus Airlines.</h1>
+        <p>¿A dónde viajas?</p>
+    </div>
+    <div class="slide">
+        <h1>Bienvenue chez Canopus Airlines.</h1>
+        <p>Où allez-vous?</p>
+    </div>
+    <div class="slide">
+        <h1>カノープス航空へようこそ。</h1>
+        <p>どこへ行きますか？</p>
+    </div>
+    <div class="slide">
+        <h1>欢迎来到老人星航空。</h1>
+        <p>您要去哪里？</p>
+    </div>
+    <div class="slide">
+        <h1>Добро пожаловать в Canopus Airlines.</h1>
+        <p>Куда вы направляетесь?</p>
+    </div>
+</div>
+
+<div class="flight-finder">
+    <div class="trip-type">
+        <label>
+            <input type="radio" name="trip" value="round" checked> Round trip
+        </label>
+        <label>
+            <input type="radio" name="trip" value="oneway"> One Way
+        </label>
+    </div>
+
+    <div class="flight-inputs">
+        <div class="input-group">
+            <label>From</label>
+            <input type="text" placeholder="City or airport" id="from">
+        </div>
+        <div class="input-group">
+            <label>To</label>
+            <input type="text" placeholder="City or airport" id="to">
+        </div>
+        <div class="input-group">
+            <label>Departure</label>
+            <input type="date" id="departure">
+        </div>
+        <div class="input-group" id="return-date-group">
+            <label>Return</label>
+            <input type="date" id="return">
+        </div>
+        <div class="input-group">
+            <label>Passengers</label>
+            <select id="passengers">
+                <option value="1">1 Passenger</option>
+                <option value="2">2 Passenger</option>
+                <option value="3">3 Passenger</option>
+                <option value="4">4 Passenger</option>
+                <option value="5">5+ Passenger</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>Class</label>
+            <select id="class">
+                <option value="Economy">Economy</option>
+                <option value="Business">Business</option>
+            </select>
+        </div>
+    </div>
+
+    <button class="btn-search" onclick="searchFlights()">Search Flights</button>
+</div>
+
+<div class="quick-links">
+    <div class="link-card" onclick="alert('Check-in page is coming soon!')">
+        <h3>Online Check-in</h3>
+        <p>You can check in online 24 hours before your flight.</p>
+    </div>
+    <a href="@Url.Action("AirportServices", "Home")" class="link-card" style="text-decoration: none; color: inherit; display: block;">
+        <h3>Airport Services</h3>
+        <p>Discover our lounge, baggage, and transportation services.</p>
+    </a>
+    <div class="link-card" onclick="alert('Reservation Management page is coming soon!')">
+        <h3>My Reservations</h3>
+        <p>View and manage your current reservations.</p>
+    </div>
+</div>
+
+<div class="destinations">
+    <h2>Popular Destinations</h2>
+    <div class="destination-cards">
+        <div class="destination-card">
+            <a href="@Url.Action("EuropeDestinations", "Home")" class="destination-img-europe"></a>
+            <div class="destination-info">
+                <h3>Europe</h3>
+                <p>Fly to Paris, London, Rome, Berlin, and more European cities.</p>
+            </div>
+        </div>
+        <div class="destination-card">
+            <a href="@Url.Action("AmericaDestinations", "Home")" class="destination-img-america"></a>
+            <div class="destination-info">
+                <h3>North America</h3>
+                <p>Discover cities like New York, Los Angeles, and Toronto.</p>
+            </div>
+        </div>
+        <div class="destination-card">
+            <a href="@Url.Action("AsiaDestinations", "Home")" class="destination-img-asia"></a>
+            <div class="destination-info">
+                <h3>Asia</h3>
+                <p>Tokyo, Dubai, Singapore, and more destinations in Asia.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="visa-free">
+    <div class="visa-free-content">
+        <h2>Countries you can visit with Turkish Passport</h2>
+        <p style="color: #EEEEEE; margin-bottom: 20px;">Discover destinations you can travel with your Turkish passport.</p>
+        <div class="visa-free-countries">
+            <div class="country-badge">South Korea</div>
+            <div class="country-badge">Japan</div>
+            <div class="country-badge">Singapore</div>
+            <div class="country-badge">Thailand</div>
+            <div class="country-badge">Malesia</div>
+            <div class="country-badge">Bosnia and Herzegovina</div>
+            <div class="country-badge">Serbia</div>
+            <div class="country-badge">Brazil</div>
+            <div class="country-badge">Argentina</div>
+            <div class="country-badge">Chile</div>
+            <div class="country-badge">Mexico</div>
+            <div class="country-badge">Katar</div>
+            <div class="country-badge">United Arab Emirates</div>
+            <div class="country-badge">Egypt</div>
+            <div class="country-badge">Georgia</div>
+        </div>
+    </div>
+</div>
