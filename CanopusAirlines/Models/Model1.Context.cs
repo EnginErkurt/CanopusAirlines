@@ -28,6 +28,7 @@ namespace CanopusAirlines.Models
         }
     
         public virtual DbSet<Airports> Airports { get; set; }
+        public virtual DbSet<Flights> Flights { get; set; }
     
         public virtual int sp_AddNewAirport(string name, string city, string country, string iata)
         {
@@ -48,6 +49,23 @@ namespace CanopusAirlines.Models
                 new ObjectParameter("Iata", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AddNewAirport", nameParameter, cityParameter, countryParameter, iataParameter);
+        }
+    
+        public virtual ObjectResult<sp_SearchFlights_Result> sp_SearchFlights(Nullable<int> departureID, Nullable<int> arrivalID, Nullable<System.DateTime> date)
+        {
+            var departureIDParameter = departureID.HasValue ?
+                new ObjectParameter("DepartureID", departureID) :
+                new ObjectParameter("DepartureID", typeof(int));
+    
+            var arrivalIDParameter = arrivalID.HasValue ?
+                new ObjectParameter("ArrivalID", arrivalID) :
+                new ObjectParameter("ArrivalID", typeof(int));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SearchFlights_Result>("sp_SearchFlights", departureIDParameter, arrivalIDParameter, dateParameter);
         }
     }
 }

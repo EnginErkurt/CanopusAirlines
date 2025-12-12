@@ -2,6 +2,8 @@
     ViewBag.Title = "Home";
 }
 <!-- engin -->
+
+
 <div class="slideshow-container">
     <div class="slide active">
         <h1>Canopus Havayollarına hoşgeldiniz.</h1>
@@ -38,52 +40,76 @@
 </div>
 
 <div class="flight-finder">
-    <div class="trip-type">
-        <label>
-            <input type="radio" name="trip" value="round" checked> Round trip
-        </label>
-        <label>
-            <input type="radio" name="trip" value="oneway"> One Way
-        </label>
-    </div>
+    <form action="@Url.Action("Search", "Home")" method="get">
 
-    <div class="flight-inputs">
-        <div class="input-group">
-            <label>From</label>
-            <input type="text" placeholder="City or airport" id="from">
+        <div class="trip-type">
+            <label>
+                <input type="radio" name="trip" value="round" checked> Round trip
+            </label>
+            <label>
+                <input type="radio" name="trip" value="oneway"> One Way
+            </label>
         </div>
-        <div class="input-group">
-            <label>To</label>
-            <input type="text" placeholder="City or airport" id="to">
-        </div>
-        <div class="input-group">
-            <label>Departure</label>
-            <input type="date" id="departure">
-        </div>
-        <div class="input-group" id="return-date-group">
-            <label>Return</label>
-            <input type="date" id="return">
-        </div>
-        <div class="input-group">
-            <label>Passengers</label>
-            <select id="passengers">
-                <option value="1">1 Passenger</option>
-                <option value="2">2 Passenger</option>
-                <option value="3">3 Passenger</option>
-                <option value="4">4 Passenger</option>
-                <option value="5">5+ Passenger</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label>Class</label>
-            <select id="class">
-                <option value="Economy">Economy</option>
-                <option value="Business">Business</option>
-            </select>
-        </div>
-    </div>
 
-    <button class="btn-search" onclick="searchFlights()">Search Flights</button>
+        <div class="flight-inputs">
+            <div class="input-group">
+                <label>From</label>
+                <select name="from_id" class="form-control" style="width: 100%; padding: 10px; border: none; outline: none;">
+                    <option value="">Select Origin</option>
+                    @if (ViewBag.Airports != null)
+                    {
+                        foreach (var airport in ViewBag.Airports)
+                        {
+                            <option value="@airport.airport_id">@airport.city (@airport.iata)</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>To</label>
+                <select name="to_id" class="form-control" style="width: 100%; padding: 10px; border: none; outline: none;">
+                    <option value="">Select Destination</option>
+                    @if (ViewBag.Airports != null)
+                    {
+                        foreach (var airport in ViewBag.Airports)
+                        {
+                            <option value="@airport.airport_id">@airport.city (@airport.iata)</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Departure</label>
+                <input type="date" name="flight_date" required>
+            </div>
+
+            <div class="input-group" id="return-date-group">
+                <label>Return</label>
+                <input type="date" id="return">
+            </div>
+
+            <div class="input-group">
+                <label>Passengers</label>
+                <select id="passengers">
+                    <option value="1">1 Passenger</option>
+                    <option value="2">2 Passenger</option>
+                    <option value="3">3+ Passenger</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Class</label>
+                <select id="class">
+                    <option value="Economy">Economy</option>
+                    <option value="Business">Business</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-search">Search Flights</button>
+    </form>
 </div>
 
 <div class="quick-links">

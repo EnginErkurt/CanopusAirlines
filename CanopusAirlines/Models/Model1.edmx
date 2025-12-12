@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CanopusAirportsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CanopusAirportsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Airports">
           <Key>
             <PropertyRef Name="airport_id" />
@@ -15,26 +15,35 @@
           <Property Name="country" Type="varchar" MaxLength="255" />
           <Property Name="iata" Type="varchar" MaxLength="10" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'CanopusAirports.dbo.vw_AirportCountsByCountry' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="vw_AirportCountsByCountry">
-          <Property Name="country" Type="varchar" MaxLength="255" />
-          <Property Name="TotalAirports" Type="int" />
-        </EntityType>-->
-        <Function Name="fn_GetLocationLabel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
-          <Parameter Name="IataCode" Type="varchar" Mode="In" />
-        </Function>
+        <EntityType Name="Flights">
+          <Key>
+            <PropertyRef Name="flight_id" />
+          </Key>
+          <Property Name="flight_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="departure_id" Type="int" />
+          <Property Name="arrival_id" Type="int" />
+          <Property Name="flight_date" Type="datetime" />
+          <Property Name="price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="price_business" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="flight_number" Type="varchar" MaxLength="50" />
+          <Property Name="available_seats" Type="int" />
+        </EntityType>
         <Function Name="sp_AddNewAirport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Name" Type="varchar" Mode="In" />
           <Parameter Name="City" Type="varchar" Mode="In" />
           <Parameter Name="Country" Type="varchar" Mode="In" />
           <Parameter Name="Iata" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_SearchFlights" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DepartureID" Type="int" Mode="In" />
+          <Parameter Name="ArrivalID" Type="int" Mode="In" />
+          <Parameter Name="Date" Type="datetime" Mode="In" />
+        </Function>
         <EntityContainer Name="CanopusAirportsModelStoreContainer">
           <EntitySet Name="Airports" EntityType="Self.Airports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Flights" EntityType="Self.Flights" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CanopusAirportsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -56,7 +65,34 @@ warning 6013: The table/view 'CanopusAirports.dbo.vw_AirportCountsByCountry' doe
             <Parameter Name="Country" Mode="In" Type="String" />
             <Parameter Name="Iata" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_SearchFlights" ReturnType="Collection(CanopusAirportsModel.sp_SearchFlights_Result)">
+            <Parameter Name="DepartureID" Mode="In" Type="Int32" />
+            <Parameter Name="ArrivalID" Mode="In" Type="Int32" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="Flights" EntityType="CanopusAirportsModel.Flights" />
         </EntityContainer>
+        <ComplexType Name="sp_SearchFlights_Result">
+          <Property Type="Int32" Name="flight_id" Nullable="false" />
+          <Property Type="String" Name="flight_number" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="flight_date" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="price" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="String" Name="FromCity" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="ToCity" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <EntityType Name="Flights">
+          <Key>
+            <PropertyRef Name="flight_id" />
+          </Key>
+          <Property Name="flight_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="departure_id" Type="Int32" />
+          <Property Name="arrival_id" Type="Int32" />
+          <Property Name="flight_date" Type="DateTime" Precision="3" />
+          <Property Name="price" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="price_business" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="flight_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="available_seats" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -75,6 +111,32 @@ warning 6013: The table/view 'CanopusAirports.dbo.vw_AirportCountsByCountry' doe
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_AddNewAirport" FunctionName="CanopusAirportsModel.Store.sp_AddNewAirport" />
+          <FunctionImportMapping FunctionImportName="sp_SearchFlights" FunctionName="CanopusAirportsModel.Store.sp_SearchFlights">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CanopusAirportsModel.sp_SearchFlights_Result">
+                <ScalarProperty Name="flight_id" ColumnName="flight_id" />
+                <ScalarProperty Name="flight_number" ColumnName="flight_number" />
+                <ScalarProperty Name="flight_date" ColumnName="flight_date" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="FromCity" ColumnName="FromCity" />
+                <ScalarProperty Name="ToCity" ColumnName="ToCity" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Flights">
+            <EntityTypeMapping TypeName="CanopusAirportsModel.Flights">
+              <MappingFragment StoreEntitySet="Flights">
+                <ScalarProperty Name="available_seats" ColumnName="available_seats" />
+                <ScalarProperty Name="flight_number" ColumnName="flight_number" />
+                <ScalarProperty Name="price_business" ColumnName="price_business" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="flight_date" ColumnName="flight_date" />
+                <ScalarProperty Name="arrival_id" ColumnName="arrival_id" />
+                <ScalarProperty Name="departure_id" ColumnName="departure_id" />
+                <ScalarProperty Name="flight_id" ColumnName="flight_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

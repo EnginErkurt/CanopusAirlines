@@ -3,14 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CanopusAirlines.Models;
 
 namespace CanopusAirlines.Controllers
 {
     public class HomeController : Controller
     {
+
+        CanopusAirportsEntities db = new CanopusAirportsEntities();
         public ActionResult Index()
         {
+            ViewBag.Airports = db.Airports.ToList();
             return View();
+        }
+
+        // 3. EKLEME: Arama butonuna basılınca çalışacak yeni metot
+        public ActionResult Search(int from_id, int to_id, DateTime flight_date)
+        {
+            // Stored Procedure'ü çağırıyoruz
+            var results = db.sp_SearchFlights(from_id, to_id, flight_date).ToList();
+
+            // Sonuçları Search.cshtml sayfasına gönderiyoruz
+            return View(results);
         }
 
         public ActionResult About()
@@ -56,6 +70,8 @@ namespace CanopusAirlines.Controllers
         {
             return View();
         }
+
+
 
     }
 }
