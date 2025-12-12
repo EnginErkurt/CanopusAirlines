@@ -12,22 +12,21 @@ namespace CanopusAirlines.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Flights
+    public partial class Passengers
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Flights()
+        public Passengers()
         {
             this.Tickets = new HashSet<Tickets>();
         }
     
-        public int flight_id { get; set; }
-        public Nullable<int> departure_id { get; set; }
-        public Nullable<int> arrival_id { get; set; }
-        public Nullable<System.DateTime> flight_date { get; set; }
-        public Nullable<decimal> price { get; set; }
-        public Nullable<decimal> price_business { get; set; }
-        public string flight_number { get; set; }
-        public Nullable<int> available_seats { get; set; }
+        public int passenger_id { get; set; }
+        public string first_name { get; set; }
+        public string last_name { get; set; }
+        public string email { get; set; }
+        public string phone { get; set; }
+        public string gender { get; set; }
+        public Nullable<System.DateTime> birth_date { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tickets> Tickets { get; set; }

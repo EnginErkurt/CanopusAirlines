@@ -7,6 +7,10 @@
       <Diagram DiagramId="be8b48b879d446ba807c10afc47628d5" Name="Diagram1" ZoomLevel="80">
         <EntityTypeShape EntityType="CanopusAirportsModel.Airports" Width="1.5" PointX="5.375" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CanopusAirportsModel.Flights" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CanopusAirportsModel.Passengers" Width="1.5" PointX="0.75" PointY="4.875" />
+        <EntityTypeShape EntityType="CanopusAirportsModel.Tickets" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="CanopusAirportsModel.FK__Tickets__flight___398D8EEE" />
+        <AssociationConnector Association="CanopusAirportsModel.FK__Tickets__passeng__3A81B327" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

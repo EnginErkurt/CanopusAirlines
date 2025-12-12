@@ -1,76 +1,104 @@
-﻿@model IEnumerable<CanopusAirlines.Models.sp_SearchFlights_Result>
+﻿@model CanopusAirlines.Models.SearchViewModel
 
 @{
-    ViewBag.Title = "Search Results";
+    ViewBag.Title = "Arama Sonuçları";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
-    int passengerCount = ViewBag.PassengerCount != null ? (int)ViewBag.PassengerCount : 1;
+    int pCount = ViewBag.PassengerCount != null ? (int)ViewBag.PassengerCount : 1;
 }
 
 <div class="container" style="margin-top: 150px; min-height: 500px;">
-    <h2 style="color: #00ADB5; margin-bottom: 30px;">Available Flights</h2>
 
-    @if (ViewBag.SelectedClass != null)
-    {
-        <p class="text-muted">
-            Selected class: <strong>@ViewBag.SelectedClass</strong> | Passenger amount: <strong>@passengerCount</strong>
-        </p>
-    }
+    <form action="@Url.Action("PassengerDetails", "Home")" method="post">
 
-    @if (!Model.Any())
-    {
-        <div class="alert alert-warning">
-            <strong>We are sorry!</strong> No flights matching your criteria were found.
-            <br />
-            <a href="/Home/Index" style="color: #222831; font-weight: bold;">← Go back to the home page and try again.</a>
-        </div>
-    }
-    else
-    {
-        <table class="table table-hover" style="background-color: white; border-radius: 10px; overflow: hidden;">
-            <thead style="background-color: #222831; color: white;">
-                <tr>
-                    <th>Flight No</th>
-                    <th>Date</th>
-                    <th>From</th>
-                    <th>To</th>
-                    <th>Total Price</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+        <input type="hidden" name="passenger_count" value="@pCount" />
+
+        <h3 style="color: #00ADB5; margin-bottom: 20px;">🛫 Outbound Flights (Gidiş)</h3>
+
+        @if (!Model.OutboundFlights.Any())
+        {
+            <div class="alert alert-warning">Gidiş için uygun uçuş bulunamadı.</div>
+        }
+        else
+        {
+            <table class="table table-hover" style="background-color: white;">
+                <thead style="background-color: #222831; color: white;">
                     <tr>
-                        <td style="font-weight: bold;">@item.flight_number</td>
-
-                        <td>@(((DateTime)item.flight_date).ToString("dd.MM.yyyy HH:mm"))</td>
-
-                        <td>@item.FromCity</td>
-                        <td>@item.ToCity</td>
-
-                        <td style="color: #00ADB5; font-size: 1.2em; font-weight: bold;">
-                            @if (item.price != null)
-                            {
-                                
-                                var totalPrice = item.price * passengerCount;
-
-                                
-                                <span>@totalPrice.Value.ToString("N2") ₺</span>
-
-                                
-                                <div style="font-size: 0.6em; color: gray; font-weight: normal;">
-                                    (@item.price.Value.ToString("N0") ₺ x @passengerCount Yolcu)
-                                </div>
-                            }
-                        </td>
-
-                        <td>
-                            <button class="btn btn-info btn-sm">Select</button>
-                        </td>
+                        <th>Flight No</th>
+                        <th>Date</th>
+                        <th>Route</th>
+                        <th>Total Price</th>
+                        <th>Select</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    }
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OutboundFlights)
+                    {
+                        <tr>
+                            <td><strong>@item.flight_number</strong></td>
+                            <td>@(((DateTime)item.flight_date).ToString("dd.MM.yyyy HH:mm"))</td>
+                            <td>@item.FromCity ➝ @item.ToCity</td>
+                            <td style="color: #00ADB5; font-weight: bold;">
+                                @if (item.price != null)
+                                {
+                                    <span>@((item.price * pCount).Value.ToString("N2")) ₺</span>
+                                }
+                            </td>
+                            <td><input type="radio" name="selected_outbound_id" value="@item.flight_id" required></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        @if (Model.IsRoundTrip)
+        {
+            <hr style="border-top: 2px dashed #ccc; margin: 40px 0;">
+
+            <h3 style="color: #00ADB5; margin-bottom: 20px;">🛬 Return Flights (Dönüş)</h3>
+
+            if (!Model.InboundFlights.Any())
+            {
+                <div class="alert alert-warning">
+                    Dönüş için uygun uçuş bulunamadı.<br>
+                    <small>Lütfen veritabanına dönüş yönünde uçuş ekleyin veya tarihi kontrol edin.</small>
+                </div>
+            }
+            else
+            {
+                <table class="table table-hover" style="background-color: white;">
+                    <thead style="background-color: #222831; color: white;">
+                        <tr>
+                            <th>Flight No</th>
+                            <th>Date</th>
+                            <th>Route</th>
+                            <th>Total Price</th>
+                            <th>Select</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.InboundFlights)
+                        {
+                            <tr>
+                                <td><strong>@item.flight_number</strong></td>
+                                <td>@(((DateTime)item.flight_date).ToString("dd.MM.yyyy HH:mm"))</td>
+                                <td>@item.FromCity ➝ @item.ToCity</td>
+                                <td style="color: #00ADB5; font-weight: bold;">
+                                    @if (item.price != null)
+                                    {
+                                        <span>@((item.price * pCount).Value.ToString("N2")) ₺</span>
+                                    }
+                                </td>
+                                <td><input type="radio" name="selected_inbound_id" value="@item.flight_id" required></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+
+        <div style="text-align: right; margin-top: 30px; margin-bottom: 50px;">
+            <button type="submit" class="btn btn-success btn-lg">Continue to Booking ➝</button>
+        </div>
+
+    </form>
 </div>

@@ -1,0 +1,125 @@
+﻿@model CanopusAirlines.Models.BookingViewModel
+@{
+    ViewBag.Title = "Seat Selection";
+    Layout = null; /* Arkadaşının tasarımı kendi header'ına sahip olduğu için Layout'u iptal ettik */
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canopus Airlines - Seat Selection</title>
+    <link rel="stylesheet" href="seat-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="@Url.Content("~/Content/SeatSelection.css")">
+    <script src="@Url.Content("~/Scripts/SeatSelection.js")"></script>
+
+</head>
+<body>
+
+    <form action="/Home/CompleteBooking" method="post" id="seatForm">
+        @Html.HiddenFor(m => m.OutboundFlightId)
+        @Html.HiddenFor(m => m.FirstName)
+        @Html.HiddenFor(m => m.LastName)
+        @Html.HiddenFor(m => m.Email)
+        @Html.HiddenFor(m => m.Phone)
+        @Html.HiddenFor(m => m.Gender)
+        @Html.HiddenFor(m => m.BirthDate)
+
+        <input type="hidden" id="SelectedSeat" name="SelectedSeat" value="" />
+        <input type="hidden" id="FinalPrice" name="TotalPrice" value="" />
+        <input type="hidden" id="serverBasePrice" value="@Model.TotalPrice.ToString(System.Globalization.CultureInfo.InvariantCulture)" />
+    </form>
+
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fa-solid fa-plane-departure"></i> Canopus Airlines
+            </div>
+            <nav>
+                <a href="#">Home</a>
+                <a href="#">My Trips</a>
+                <a href="#">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-wrapper">
+        <div class="container">
+
+            <aside class="sidebar">
+                <div class="flight-info-card">
+                    <h3>Istanbul <i class="fa-solid fa-arrow-right-long"></i> East London</h3>
+                    <p class="date">26 Mar, Thursday</p>
+                    <div class="passenger-info">
+                        <i class="fa-solid fa-user"></i>
+                        <span>1. Passenger (Adult)</span>
+                        <div id="selectedSeatDisplay" class="selected-seat-placeholder">
+                            No Seat Selected
+                        </div>
+                    </div>
+                </div>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="seat-sample available"></div>
+                        <span>Standard</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="seat-sample selected"></div>
+                        <span>Selected</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="seat-sample occupied"><i class="fa-solid fa-xmark"></i></div>
+                        <span>Occupied</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="seat-sample extra"><i class="fa-solid fa-star"></i></div>
+                        <span>Extra Legroom</span>
+                    </div>
+                </div>
+
+                <div class="price-summary">
+                    <span>Total Price</span>
+                    <strong id="totalPrice">TRY @Model.TotalPrice.ToString("N2")</strong>
+                </div>
+
+                <button id="btnBuy" class="btn-buy" disabled>
+                    Buy Ticket <i class="fa-solid fa-check"></i>
+                </button>
+            </aside>
+
+            <main class="plane-container">
+                <div class="plane-body">
+                    <div class="cockpit"></div>
+                    <div class="exit-row-label">FRONT EXIT</div>
+
+                    <div class="cabin-grid" id="cabinGrid">
+                        <div class="row-letters">
+                            <span>A</span><span>B</span><span>C</span>
+                            <span class="aisle-spacer"></span>
+                            <span>D</span><span>E</span><span>F</span>
+                            <span class="aisle-spacer"></span>
+                            <span>G</span><span>H</span><span>J</span>
+                        </div>
+                    </div>
+
+                    <div class="exit-row-label" style="margin-top: 30px;">REAR EXIT</div>
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+    <div id="seatTooltip" class="seat-tooltip">
+        <div class="tooltip-seat-num">12A</div>
+        <div class="tooltip-price">TRY 150.00</div>
+    </div>
+
+</body>
+
+
+</html>
+

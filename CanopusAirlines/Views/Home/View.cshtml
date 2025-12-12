@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Booking Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var outFlight = ViewBag.Outbound as CanopusAirlines.Models.Flights;
+    var inFlight = ViewBag.Inbound as CanopusAirlines.Models.Flights;
+}
+
+<div class="container" style="margin-top: 150px;">
+    <h2>Booking Confirmation</h2>
+    <hr />
+
+    <div class="alert alert-info">
+        <h4>Gidiş Uçuşu:</h4>
+        <p>Uçuş No: @outFlight.flight_number | Tarih: @outFlight.flight_date</p>
+    </div>
+
+    @if (inFlight != null)
+    {
+        <div class="alert alert-success">
+            <h4>Dönüş Uçuşu:</h4>
+            <p>Uçuş No: @inFlight.flight_number | Tarih: @inFlight.flight_date</p>
+        </div>
+    }
+
+    <h3>Toplam Yolcu: @ViewBag.PassengerCount</h3>
+
+    <button class="btn btn-primary">Ödeme Yap (Yakında)</button>
+</div>

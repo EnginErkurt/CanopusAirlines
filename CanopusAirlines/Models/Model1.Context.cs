@@ -29,6 +29,8 @@ namespace CanopusAirlines.Models
     
         public virtual DbSet<Airports> Airports { get; set; }
         public virtual DbSet<Flights> Flights { get; set; }
+        public virtual DbSet<Passengers> Passengers { get; set; }
+        public virtual DbSet<Tickets> Tickets { get; set; }
     
         public virtual int sp_AddNewAirport(string name, string city, string country, string iata)
         {
