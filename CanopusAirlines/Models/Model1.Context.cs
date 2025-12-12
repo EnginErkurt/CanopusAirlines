@@ -51,7 +51,7 @@ namespace CanopusAirlines.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AddNewAirport", nameParameter, cityParameter, countryParameter, iataParameter);
         }
     
-        public virtual ObjectResult<sp_SearchFlights_Result> sp_SearchFlights(Nullable<int> departureID, Nullable<int> arrivalID, Nullable<System.DateTime> date)
+        public virtual ObjectResult<sp_SearchFlights_Result> sp_SearchFlights(Nullable<int> departureID, Nullable<int> arrivalID, Nullable<System.DateTime> date, string classType)
         {
             var departureIDParameter = departureID.HasValue ?
                 new ObjectParameter("DepartureID", departureID) :
@@ -65,7 +65,11 @@ namespace CanopusAirlines.Models
                 new ObjectParameter("Date", date) :
                 new ObjectParameter("Date", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SearchFlights_Result>("sp_SearchFlights", departureIDParameter, arrivalIDParameter, dateParameter);
+            var classTypeParameter = classType != null ?
+                new ObjectParameter("ClassType", classType) :
+                new ObjectParameter("ClassType", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SearchFlights_Result>("sp_SearchFlights", departureIDParameter, arrivalIDParameter, dateParameter, classTypeParameter);
         }
     }
 }

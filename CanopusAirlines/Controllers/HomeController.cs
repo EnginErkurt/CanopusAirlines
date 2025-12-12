@@ -18,12 +18,22 @@ namespace CanopusAirlines.Controllers
         }
 
         // 3. EKLEME: Arama butonuna basılınca çalışacak yeni metot
-        public ActionResult Search(int from_id, int to_id, DateTime flight_date)
+        public ActionResult Search(int from_id, int to_id, DateTime flight_date, string flight_class, int passenger_count = 1)
         {
-            // Stored Procedure'ü çağırıyoruz
-            var results = db.sp_SearchFlights(from_id, to_id, flight_date).ToList();
+            // Olası hatalara karşı güvenlik (Eğer sayı gelmezse 1 kabul et)
+            if (string.IsNullOrEmpty(flight_class)) flight_class = "Economy";
+            if (passenger_count < 1) passenger_count = 1;
 
-            // Sonuçları Search.cshtml sayfasına gönderiyoruz
+            // 4. Parametre (flight_class) ile veriyi çekiyoruz
+            var results = db.sp_SearchFlights(from_id, to_id, flight_date, flight_class).ToList();
+
+            // --- YENİ KISIM ---
+            // Yolcu sayısını sayfada hesaplama yapmak için ViewBag'e atıyoruz
+            ViewBag.PassengerCount = passenger_count;
+
+            // Seçilen sınıf bilgisini de gönderiyoruz (Opsiyonel)
+            ViewBag.SelectedClass = flight_class;
+
             return View(results);
         }
 

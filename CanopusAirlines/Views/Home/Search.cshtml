@@ -1,19 +1,28 @@
 ﻿@model IEnumerable<CanopusAirlines.Models.sp_SearchFlights_Result>
 
 @{
-    ViewBag.Title = "Arama Sonuçları";
+    ViewBag.Title = "Search Results";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int passengerCount = ViewBag.PassengerCount != null ? (int)ViewBag.PassengerCount : 1;
 }
 
 <div class="container" style="margin-top: 150px; min-height: 500px;">
     <h2 style="color: #00ADB5; margin-bottom: 30px;">Available Flights</h2>
 
+    @if (ViewBag.SelectedClass != null)
+    {
+        <p class="text-muted">
+            Selected class: <strong>@ViewBag.SelectedClass</strong> | Passenger amount: <strong>@passengerCount</strong>
+        </p>
+    }
+
     @if (!Model.Any())
     {
         <div class="alert alert-warning">
-            <strong>Üzgünüz!</strong> Aradığınız kriterlere uygun uçuş bulunamadı.
+            <strong>We are sorry!</strong> No flights matching your criteria were found.
             <br />
-            <a href="/Home/Index" style="color: #222831; font-weight: bold;">← Ana sayfaya dönüp tekrar deneyin.</a>
+            <a href="/Home/Index" style="color: #222831; font-weight: bold;">← Go back to the home page and try again.</a>
         </div>
     }
     else
@@ -25,7 +34,7 @@
                     <th>Date</th>
                     <th>From</th>
                     <th>To</th>
-                    <th>Price</th>
+                    <th>Total Price</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -34,10 +43,28 @@
                 {
                     <tr>
                         <td style="font-weight: bold;">@item.flight_number</td>
-                        <td>@item.flight_date</td>
+
+                        <td>@(((DateTime)item.flight_date).ToString("dd.MM.yyyy HH:mm"))</td>
+
                         <td>@item.FromCity</td>
                         <td>@item.ToCity</td>
-                        <td style="color: #00ADB5; font-size: 1.2em;">@item.price ₺</td>
+
+                        <td style="color: #00ADB5; font-size: 1.2em; font-weight: bold;">
+                            @if (item.price != null)
+                            {
+                                
+                                var totalPrice = item.price * passengerCount;
+
+                                
+                                <span>@totalPrice.Value.ToString("N2") ₺</span>
+
+                                
+                                <div style="font-size: 0.6em; color: gray; font-weight: normal;">
+                                    (@item.price.Value.ToString("N0") ₺ x @passengerCount Yolcu)
+                                </div>
+                            }
+                        </td>
+
                         <td>
                             <button class="btn btn-info btn-sm">Select</button>
                         </td>

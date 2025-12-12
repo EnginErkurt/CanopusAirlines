@@ -38,6 +38,7 @@
           <Parameter Name="DepartureID" Type="int" Mode="In" />
           <Parameter Name="ArrivalID" Type="int" Mode="In" />
           <Parameter Name="Date" Type="datetime" Mode="In" />
+          <Parameter Name="ClassType" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="CanopusAirportsModelStoreContainer">
           <EntitySet Name="Airports" EntityType="Self.Airports" Schema="dbo" store:Type="Tables" />
@@ -69,6 +70,7 @@
             <Parameter Name="DepartureID" Mode="In" Type="Int32" />
             <Parameter Name="ArrivalID" Mode="In" Type="Int32" />
             <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="ClassType" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="Flights" EntityType="CanopusAirportsModel.Flights" />
         </EntityContainer>
