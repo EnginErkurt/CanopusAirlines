@@ -1,0 +1,154 @@
+/* General Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+body { background-color: #f4f6f8; color: #333; }
+
+/* Header (Consistent) */
+header { background-color: #1f2937; padding: 15px 0; color: white; }
+.header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+.logo { font-size: 24px; font-weight: 700; color: #00bcd4; display: flex; align-items: center; gap: 10px; }
+nav a { color: #cbd5e1; text-decoration: none; margin: 0 15px; font-size: 14px; transition: 0.3s; }
+nav a:hover { color: #00bcd4; }
+
+/* Wrapper */
+.main-wrapper { padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
+
+/* Success Message */
+.success-message { text-align: center; margin-bottom: 30px; }
+.success-message i { font-size: 50px; color: #2ecc71; margin-bottom: 10px; }
+.success-message h1 { color: #1f2937; margin-bottom: 5px; }
+.success-message p { color: #64748b; }
+
+/* Ticket Container */
+.ticket-container {
+    background: white;
+    width: 100%;
+    max-width: 800px;
+    border: 2px solid #00bcd4; /* Canopus Border Color */
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.ticket-header {
+    background-color: #f8fafc;
+    color: #b91c1c; /* Kept slight red text for 'Information' title similar to reference, or allow dark: #1f2937 */
+    color: #1f2937;
+    font-weight: 700;
+    padding: 15px 25px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 18px;
+}
+
+.ticket-body {
+    padding: 25px;
+}
+
+/* Info Grid (Key-Value Pairs) */
+.info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dotted #eee;
+    padding-bottom: 5px;
+}
+
+.info-row:last-child { border-bottom: none; }
+
+.label {
+    font-weight: 700;
+    color: #b71c1c; /* Similar Red/Brown tone for labels as in THY image */
+    font-size: 14px;
+    width: 40%;
+}
+
+.value {
+    font-weight: 500;
+    color: #1f2937;
+    font-size: 14px;
+    width: 60%;
+    text-transform: uppercase;
+}
+
+/* Highlight for VAT */
+.highlight-bg {
+    background-color: #ffeb3b; /* Yellow highlight */
+    padding: 2px 5px;
+    border-radius: 2px;
+    font-weight: 700;
+}
+
+/* Divider */
+.divider {
+    border: 0;
+    border-top: 2px solid #00bcd4;
+    margin: 20px 0;
+}
+
+/* Flight Table */
+.flight-table-container {
+    overflow-x: auto;
+}
+
+.flight-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.flight-table th {
+    text-align: left;
+    color: #b71c1c;
+    border-bottom: 2px solid #cbd5e1;
+    padding: 10px 5px;
+}
+
+.flight-table td {
+    padding: 10px 5px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
+
+.ticket-footer-logo {
+    text-align: right;
+    padding: 10px 25px;
+    background: #f8fafc;
+    font-size: 12px;
+    color: #cbd5e1;
+    font-weight: bold;
+}
+
+/* Home Button */
+.btn-home {
+    background-color: #00bcd4;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-home:hover {
+    background-color: #00a0b5;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 188, 212, 0.3);
+}
+
+@media (max-width: 600px) {
+    .info-row { flex-direction: column; align-items: flex-start; gap: 2px; }
+    .label { width: 100%; }
+    .value { width: 100%; }
+}

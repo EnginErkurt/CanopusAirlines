@@ -151,7 +151,7 @@ namespace CanopusAirlines.Controllers
         [HttpPost]
         public ActionResult CompleteBooking(BookingViewModel model)
         {
-            // 1. Yolcuyu Kaydet (Bu değişmiyor)
+            // 1. YOLCUYU KAYDET
             Passengers newPassenger = new Passengers();
             newPassenger.first_name = model.FirstName;
             newPassenger.last_name = model.LastName;
@@ -163,34 +163,76 @@ namespace CanopusAirlines.Controllers
             db.Passengers.Add(newPassenger);
             db.SaveChanges();
 
-            string pnr = GeneratePNR(); // İkisi için de aynı PNR olsun
+            string pnr = GeneratePNR();
+
+            // --- TICKET VIEW MODEL HAZIRLIĞI ---
+            TicketViewModel ticketModel = new TicketViewModel();
+            ticketModel.PassengerName = model.FirstName.ToUpper() + " " + model.LastName.ToUpper();
+            ticketModel.PnrCode = pnr;
+            ticketModel.IssueDate = DateTime.Now;
+            ticketModel.TotalAmount = model.TotalPrice;
+            ticketModel.Flights = new List<FlightDetail>();
 
             // 2. GİDİŞ BİLETİNİ KAYDET
             Tickets ticketOut = new Tickets();
             ticketOut.flight_id = model.OutboundFlightId;
             ticketOut.passenger_id = newPassenger.passenger_id;
-            ticketOut.seat_number = model.SelectedSeat; // Şimdilik aynı koltuk no
-            ticketOut.total_price = model.TotalPrice; // Toplam tutarı buraya yazıyoruz
+            ticketOut.seat_number = model.SelectedSeat;
+            ticketOut.total_price = model.TotalPrice;
             ticketOut.pnr_code = pnr;
             ticketOut.booking_date = DateTime.Now;
             db.Tickets.Add(ticketOut);
 
-            // 3. EĞER DÖNÜŞ VARSA, ONUN İÇİN DE BİLET OLUŞTUR (YENİ KISIM)
+            // --- HATA DÜZELTME KISMI (GİDİŞ) ---
+            // Uçuşu bul
+            var outFlightDb = db.Flights.Find(model.OutboundFlightId);
+
+            // Havalimanlarını ID ile manuel buluyoruz (Navigation property yerine)
+            var outDepAirport = db.Airports.Find(outFlightDb.departure_id); // Kalkış Havalimanı
+            var outArrAirport = db.Airports.Find(outFlightDb.arrival_id);   // Varış Havalimanı
+
+            ticketModel.Flights.Add(new FlightDetail
+            {
+                From = outDepAirport.iata, // Bulduğumuz havalimanından IATA kodunu al
+                To = outArrAirport.iata,
+                FlightNo = outFlightDb.flight_number,
+                Seat = model.SelectedSeat,
+                Date = (DateTime)outFlightDb.flight_date
+            });
+
+            // 3. EĞER DÖNÜŞ VARSA KAYDET VE MODELE EKLE
             if (model.InboundFlightId != null)
             {
                 Tickets ticketIn = new Tickets();
                 ticketIn.flight_id = model.InboundFlightId.Value;
                 ticketIn.passenger_id = newPassenger.passenger_id;
-                ticketIn.seat_number = model.SelectedSeat; // Dönüşte de aynı koltuk (İleride ayırabiliriz)
-                ticketIn.total_price = 0; // Fiyatı ilk bilete yazdığımız için buna 0 diyebiliriz veya bölebilirsin
+                ticketIn.seat_number = model.SelectedSeat;
+                ticketIn.total_price = 0;
                 ticketIn.pnr_code = pnr;
                 ticketIn.booking_date = DateTime.Now;
                 db.Tickets.Add(ticketIn);
+
+                // --- HATA DÜZELTME KISMI (DÖNÜŞ) ---
+                var inFlightDb = db.Flights.Find(model.InboundFlightId);
+
+                // Havalimanlarını ID ile manuel bul
+                var inDepAirport = db.Airports.Find(inFlightDb.departure_id);
+                var inArrAirport = db.Airports.Find(inFlightDb.arrival_id);
+
+                ticketModel.Flights.Add(new FlightDetail
+                {
+                    From = inDepAirport.iata,
+                    To = inArrAirport.iata,
+                    FlightNo = inFlightDb.flight_number,
+                    Seat = model.SelectedSeat,
+                    Date = (DateTime)inFlightDb.flight_date
+                });
             }
 
             db.SaveChanges();
 
-            return Content("İşlem Başarılı! PNR Kodunuz: " + pnr);
+            // 4. TICKET SAYFASINI AÇ
+            return View("TicketConfirmation", ticketModel);
         }
 
         // Yardımcı PNR Fonksiyonu
