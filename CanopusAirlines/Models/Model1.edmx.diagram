@@ -11,6 +11,7 @@
         <EntityTypeShape EntityType="CanopusAirportsModel.Tickets" Width="1.5" PointX="3" PointY="0.75" />
         <AssociationConnector Association="CanopusAirportsModel.FK__Tickets__flight___398D8EEE" />
         <AssociationConnector Association="CanopusAirportsModel.FK__Tickets__passeng__3A81B327" />
+        <EntityTypeShape EntityType="CanopusAirportsModel.Users" Width="1.5" PointX="3.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

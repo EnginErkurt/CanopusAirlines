@@ -165,6 +165,16 @@ namespace CanopusAirlines.Controllers
 
             string pnr = GeneratePNR();
 
+            // --- YENİ EKLENEN KISIM (BAŞLANGIÇ) ---
+            // Kullanıcı giriş yapmış mı kontrol ediyoruz.
+            // Eğer yapmışsa ID'sini alıyoruz, yapmamışsa NULL (boş) bırakıyoruz.
+            int? loggedInUserId = null;
+            if (Session["UserID"] != null)
+            {
+                loggedInUserId = Convert.ToInt32(Session["UserID"]);
+            }
+            // --- YENİ EKLENEN KISIM (BİTİŞ) ---
+
             // --- TICKET VIEW MODEL HAZIRLIĞI ---
             TicketViewModel ticketModel = new TicketViewModel();
             ticketModel.PassengerName = model.FirstName.ToUpper() + " " + model.LastName.ToUpper();
@@ -181,19 +191,20 @@ namespace CanopusAirlines.Controllers
             ticketOut.total_price = model.TotalPrice;
             ticketOut.pnr_code = pnr;
             ticketOut.booking_date = DateTime.Now;
+
+            // --- YENİ EKLENEN KISIM: Kullanıcı ID'sini bilete yazıyoruz ---
+            ticketOut.user_id = loggedInUserId;
+
             db.Tickets.Add(ticketOut);
 
             // --- HATA DÜZELTME KISMI (GİDİŞ) ---
-            // Uçuşu bul
             var outFlightDb = db.Flights.Find(model.OutboundFlightId);
-
-            // Havalimanlarını ID ile manuel buluyoruz (Navigation property yerine)
-            var outDepAirport = db.Airports.Find(outFlightDb.departure_id); // Kalkış Havalimanı
-            var outArrAirport = db.Airports.Find(outFlightDb.arrival_id);   // Varış Havalimanı
+            var outDepAirport = db.Airports.Find(outFlightDb.departure_id);
+            var outArrAirport = db.Airports.Find(outFlightDb.arrival_id);
 
             ticketModel.Flights.Add(new FlightDetail
             {
-                From = outDepAirport.iata, // Bulduğumuz havalimanından IATA kodunu al
+                From = outDepAirport.iata,
                 To = outArrAirport.iata,
                 FlightNo = outFlightDb.flight_number,
                 Seat = model.SelectedSeat,
@@ -210,12 +221,14 @@ namespace CanopusAirlines.Controllers
                 ticketIn.total_price = 0;
                 ticketIn.pnr_code = pnr;
                 ticketIn.booking_date = DateTime.Now;
+
+                // --- YENİ EKLENEN KISIM: Dönüş biletine de Kullanıcı ID'sini yazıyoruz ---
+                ticketIn.user_id = loggedInUserId;
+
                 db.Tickets.Add(ticketIn);
 
                 // --- HATA DÜZELTME KISMI (DÖNÜŞ) ---
                 var inFlightDb = db.Flights.Find(model.InboundFlightId);
-
-                // Havalimanlarını ID ile manuel bul
                 var inDepAirport = db.Airports.Find(inFlightDb.departure_id);
                 var inArrAirport = db.Airports.Find(inFlightDb.arrival_id);
 

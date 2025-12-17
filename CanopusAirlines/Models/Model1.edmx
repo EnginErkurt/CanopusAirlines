@@ -51,6 +51,18 @@
           <Property Name="pnr_code" Type="varchar" MaxLength="10" />
           <Property Name="total_price" Type="decimal" Precision="10" Scale="2" />
           <Property Name="booking_date" Type="datetime" />
+          <Property Name="user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Role" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <Association Name="FK__Tickets__flight___398D8EEE">
           <End Role="Flights" Type="Self.Flights" Multiplicity="0..1" />
@@ -93,6 +105,7 @@
           <EntitySet Name="Flights" EntityType="Self.Flights" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Passengers" EntityType="Self.Passengers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Tickets__flight___398D8EEE" Association="Self.FK__Tickets__flight___398D8EEE">
             <End Role="Flights" EntitySet="Flights" />
             <End Role="Tickets" EntitySet="Tickets" />
@@ -141,6 +154,7 @@
             <End Role="Passengers" EntitySet="Passengers" />
             <End Role="Tickets" EntitySet="Tickets" />
           </AssociationSet>
+          <EntitySet Name="Users" EntityType="CanopusAirportsModel.Users" />
         </EntityContainer>
         <ComplexType Name="sp_SearchFlights_Result">
           <Property Type="Int32" Name="flight_id" Nullable="false" />
@@ -190,6 +204,7 @@
           <Property Name="booking_date" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Flights" Relationship="CanopusAirportsModel.FK__Tickets__flight___398D8EEE" FromRole="Tickets" ToRole="Flights" />
           <NavigationProperty Name="Passengers" Relationship="CanopusAirportsModel.FK__Tickets__passeng__3A81B327" FromRole="Tickets" ToRole="Passengers" />
+          <Property Name="user_id" Type="Int32" />
         </EntityType>
         <Association Name="FK__Tickets__flight___398D8EEE">
           <End Type="CanopusAirportsModel.Flights" Role="Flights" Multiplicity="0..1" />
@@ -215,6 +230,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -275,6 +301,7 @@
           <EntitySetMapping Name="Tickets">
             <EntityTypeMapping TypeName="CanopusAirportsModel.Tickets">
               <MappingFragment StoreEntitySet="Tickets">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="booking_date" ColumnName="booking_date" />
                 <ScalarProperty Name="total_price" ColumnName="total_price" />
                 <ScalarProperty Name="pnr_code" ColumnName="pnr_code" />
@@ -282,6 +309,18 @@
                 <ScalarProperty Name="passenger_id" ColumnName="passenger_id" />
                 <ScalarProperty Name="flight_id" ColumnName="flight_id" />
                 <ScalarProperty Name="ticket_id" ColumnName="ticket_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CanopusAirportsModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

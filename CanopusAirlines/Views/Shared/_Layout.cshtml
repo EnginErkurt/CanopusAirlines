@@ -42,19 +42,21 @@
             </div>
 
             <div class="auth-buttons">
-                @if (Request.IsAuthenticated)
+                @if (Session["UserName"] != null)
                 {
-                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", style = "display:inline;" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <span style="margin-right:10px;">Merhaba, @User.Identity.Name</span>
-                        <button type="submit" class="btn btn-signin">Log Off</button>
-                    }
+                    <span style="margin-right:10px; font-weight:bold; color: #ffffff;">
+                        Merhaba, @Session["UserName"]
+                    </span>
+
+                    <a href="@Url.Action("Logout", "Auth")" class="btn btn-signin"
+                       style="background-color: #d32f2f; color: white; border: 1px solid #d32f2f;">
+                        Log Off
+                    </a>
                 }
                 else
                 {
-                    <a href="@Url.Action("Login", "Account")" class="btn btn-signin">Sign In</a>
-                    <a href="@Url.Action("Register", "Account")" class="btn btn-signup">Sign Up</a>
+                    <a href="@Url.Action("Login", "Auth")" class="btn btn-signin">Sign In</a>
+                    <a href="@Url.Action("Register", "Auth")" class="btn btn-signup">Sign Up</a>
                 }
             </div>
         </nav>

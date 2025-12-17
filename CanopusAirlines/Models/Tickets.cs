@@ -21,6 +21,7 @@ namespace CanopusAirlines.Models
         public string pnr_code { get; set; }
         public Nullable<decimal> total_price { get; set; }
         public Nullable<System.DateTime> booking_date { get; set; }
+        public Nullable<int> user_id { get; set; }
     
         public virtual Flights Flights { get; set; }
         public virtual Passengers Passengers { get; set; }
