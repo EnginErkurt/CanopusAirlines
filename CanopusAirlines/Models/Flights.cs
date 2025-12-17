@@ -28,6 +28,8 @@ namespace CanopusAirlines.Models
         public Nullable<decimal> price_business { get; set; }
         public string flight_number { get; set; }
         public Nullable<int> available_seats { get; set; }
+        public string status { get; set; }
+        public Nullable<int> capacity { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tickets> Tickets { get; set; }

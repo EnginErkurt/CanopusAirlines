@@ -1,0 +1,248 @@
+﻿@{
+    Layout = null; /* Admin paneli kendi tasarımına sahip, ana site şablonunu kullanmayacak */
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canopus Admin Panel</title>
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/AdminStyle.css")">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div id="login-section" class="login-container">
+        <div class="login-box">
+            <div class="logo-area">
+                <i class="fas fa-plane-departure"></i>
+                <h2>Canopus Admin</h2>
+            </div>
+            <p>Please log in with your administration account.</p>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" id="username" placeholder="Ex: admin" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="******" required>
+                </div>
+                <button type="submit" class="btn-login">Login</button>
+                <p id="error-msg" class="error-hidden">Incorrect username or password!</p>
+            </form>
+        </div>
+    </div>
+
+    <div id="dashboard-section" class="dashboard-container hidden">
+
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>Canopus</h3>
+                <span>Management</span>
+            </div>
+            <ul class="nav-links">
+                <li onclick="showPage('flights')" class="active-link"><i class="fas fa-plane"></i> Flight Management</li>
+                <li onclick="showPage('passengers')"><i class="fas fa-users"></i> Tickets & Passengers</li>
+                <li onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h2 id="welcome-text">Welcome</h2>
+                <div class="user-profile">
+                    <span id="admin-name">Administrator</span>
+                    <small id="admin-role">Role</small>
+                </div>
+            </header>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <i class="fas fa-coins"></i>
+                    <div class="stat-info">
+                        <h3 id="total-revenue">$0</h3>
+                        <p>Total Revenue</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-ticket-alt"></i>
+                    <div class="stat-info">
+                        <h3 id="total-tickets">0</h3>
+                        <p>Sold Tickets</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-plane"></i>
+                    <div class="stat-info">
+                        <h3 id="active-flights">0</h3>
+                        <p>Active Flights</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="flights-page" class="content-page">
+                <div class="card-header">
+                    <h3>Flight Management</h3>
+                    <button class="btn-add" onclick="openAddModal()">+ New Flight</button>
+                </div>
+
+                <div class="search-box">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search Flight No or City..." onkeyup="filterFlights()">
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Flight No</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="flight-table-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="passengers-page" class="content-page hidden">
+                <div class="card-header">
+                    <h3>Sold Tickets</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>PNR</th>
+                                <th>Passenger Name</th>
+                                <th>Flight</th>
+                                <th>Seat</th>
+                                <th>Class</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="passenger-table-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div id="editModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Flight</h3>
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <div class="input-group">
+                        <label>Flight No</label>
+                        <input type="text" id="edit-no" readonly style="background: #eee; cursor: not-allowed;">
+                    </div>
+                    <div class="row">
+                        <div class="input-group half">
+                            <label>From</label>
+                            <input type="text" id="edit-from">
+                        </div>
+                        <div class="input-group half">
+                            <label>To</label>
+                            <input type="text" id="edit-to">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Date & Time</label>
+                        <input type="datetime-local" id="edit-date">
+                    </div>
+                    <div class="input-group">
+                        <label>Status</label>
+                        <select id="edit-status">
+                            <option value="On Time">On Time</option>
+                            <option value="Delayed">Delayed</option>
+                            <option value="Cancelled">Cancelled</option>
+                            <option value="Gate Closed">Gate Closed</option>
+                            <option value="Landed">Landed</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-delete" onclick="deleteFlight()">Delete Flight</button>
+                        <div class="right-btns">
+                            <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+                            <button type="button" class="btn-save" onclick="saveFlight()">Save Changes</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="addModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Plan New Flight</h3>
+                <span class="close-btn" onclick="closeAddModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="addForm">
+                    <div class="input-group">
+                        <label>Flight No (Ex: CNP-999)</label>
+                        <input type="text" id="add-no" placeholder="CNP-...">
+                    </div>
+                    <div class="row">
+                        <div class="input-group half">
+                            <label>From</label>
+                            <input type="text" id="add-from" placeholder="IST">
+                        </div>
+                        <div class="input-group half">
+                            <label>To</label>
+                            <input type="text" id="add-to" placeholder="LHR">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group half">
+                            <label>Price ($)</label>
+                            <input type="number" id="add-price" placeholder="150">
+                        </div>
+                        <div class="input-group half">
+                            <label>Capacity</label>
+                            <input type="number" id="add-seats" placeholder="150">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Date & Time</label>
+                        <input type="datetime-local" id="add-date">
+                    </div>
+                    <div class="input-group">
+                        <label>Status</label>
+                        <select id="add-status">
+                            <option value="On Time">On Time</option>
+                            <option value="Delayed">Delayed</option>
+                            <option value="Cancelled">Cancelled</option>
+                            <option value="Gate Closed">Gate Closed</option>
+                            <option value="Landed">Landed</option>
+                        </select>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="right-btns" style="width: 100%; text-align: right;">
+                            <button type="button" class="btn-cancel" onclick="closeAddModal()">Cancel</button>
+                            <button type="button" class="btn-save" onclick="addNewFlight()">Create Flight</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="@Url.Content("~/Scripts/AdminScript.js")"></script>
+</body>
+</html>+

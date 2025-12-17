@@ -165,15 +165,12 @@ namespace CanopusAirlines.Controllers
 
             string pnr = GeneratePNR();
 
-            // --- YENİ EKLENEN KISIM (BAŞLANGIÇ) ---
             // Kullanıcı giriş yapmış mı kontrol ediyoruz.
-            // Eğer yapmışsa ID'sini alıyoruz, yapmamışsa NULL (boş) bırakıyoruz.
             int? loggedInUserId = null;
             if (Session["UserID"] != null)
             {
                 loggedInUserId = Convert.ToInt32(Session["UserID"]);
             }
-            // --- YENİ EKLENEN KISIM (BİTİŞ) ---
 
             // --- TICKET VIEW MODEL HAZIRLIĞI ---
             TicketViewModel ticketModel = new TicketViewModel();
@@ -192,13 +189,21 @@ namespace CanopusAirlines.Controllers
             ticketOut.pnr_code = pnr;
             ticketOut.booking_date = DateTime.Now;
 
-            // --- YENİ EKLENEN KISIM: Kullanıcı ID'sini bilete yazıyoruz ---
+            // Kullanıcı ID'sini bilete yazıyoruz
             ticketOut.user_id = loggedInUserId;
 
             db.Tickets.Add(ticketOut);
 
             // --- HATA DÜZELTME KISMI (GİDİŞ) ---
             var outFlightDb = db.Flights.Find(model.OutboundFlightId);
+
+            // --- STOK DÜŞME İŞLEMİ (GİDİŞ) ---
+            if (outFlightDb.available_seats > 0)
+            {
+                outFlightDb.available_seats -= 1;
+            }
+            // ----------------------------------
+
             var outDepAirport = db.Airports.Find(outFlightDb.departure_id);
             var outArrAirport = db.Airports.Find(outFlightDb.arrival_id);
 
@@ -222,13 +227,21 @@ namespace CanopusAirlines.Controllers
                 ticketIn.pnr_code = pnr;
                 ticketIn.booking_date = DateTime.Now;
 
-                // --- YENİ EKLENEN KISIM: Dönüş biletine de Kullanıcı ID'sini yazıyoruz ---
+                // Dönüş biletine de Kullanıcı ID'sini yazıyoruz
                 ticketIn.user_id = loggedInUserId;
 
                 db.Tickets.Add(ticketIn);
 
                 // --- HATA DÜZELTME KISMI (DÖNÜŞ) ---
                 var inFlightDb = db.Flights.Find(model.InboundFlightId);
+
+                // --- STOK DÜŞME İŞLEMİ (DÖNÜŞ) ---
+                if (inFlightDb.available_seats > 0)
+                {
+                    inFlightDb.available_seats -= 1;
+                }
+                // ----------------------------------
+
                 var inDepAirport = db.Airports.Find(inFlightDb.departure_id);
                 var inArrAirport = db.Airports.Find(inFlightDb.arrival_id);
 
@@ -242,10 +255,55 @@ namespace CanopusAirlines.Controllers
                 });
             }
 
-            db.SaveChanges();
+            db.SaveChanges(); // Hem bileti kaydeder hem de stokları günceller
 
             // 4. TICKET SAYFASINI AÇ
             return View("TicketConfirmation", ticketModel);
+        }
+
+        public ActionResult CheckIn()
+        {
+            return View();
+        }
+
+        // CHECK-IN İÇİN BİLET SORGULAMA
+        [HttpPost]
+        public JsonResult GetTicketCheckIn(string pnr, string lastname)
+        {
+            // PNR ve Soyad eşleşen bileti bul (Büyük/küçük harf duyarsız olsun diye ToLower kullanıyoruz)
+            var ticket = db.Tickets.FirstOrDefault(t =>
+                t.pnr_code == pnr &&
+                t.Passengers.last_name.ToLower() == lastname.ToLower());
+
+            if (ticket != null)
+            {
+                // Uçuş ve Havalimanı bilgilerini çekelim
+                var flight = db.Flights.Find(ticket.flight_id);
+                var depAirport = db.Airports.Find(flight.departure_id);
+                var arrAirport = db.Airports.Find(flight.arrival_id);
+
+                // JS'e göndereceğimiz paketi hazırlayalım
+                var result = new
+                {
+                    success = true,
+                    passengerName = ticket.Passengers.first_name.ToUpper() + " " + ticket.Passengers.last_name.ToUpper(),
+                    flightNo = flight.flight_number,
+                    originCode = depAirport.iata,     // Örn: IST
+                    originCity = depAirport.city,     // Örn: Istanbul
+                    destCode = arrAirport.iata,       // Örn: JFK
+                    destCity = arrAirport.city,       // Örn: New York
+                    date = flight.flight_date.Value.ToString("dd MMM yyyy"), // 17 DEC 2025
+                    time = flight.flight_date.Value.ToString("HH:mm"),       // 14:30
+                    seat = ticket.seat_number,
+                    gate = "A" + new Random().Next(1, 20) // Kapı no veritabanında yoksa rastgele ata
+                };
+
+                return Json(result);
+            }
+            else
+            {
+                return Json(new { success = false, message = "Bilet bulunamadı! PNR kodunu ve soyadınızı kontrol edin." });
+            }
         }
 
         // Yardımcı PNR Fonksiyonu

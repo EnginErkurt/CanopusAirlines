@@ -1,0 +1,152 @@
+﻿@{
+    ViewBag.Title = "Online Check-in";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="@Url.Content("~/Content/CheckinStyle.css")">
+
+<div class="checkin-body-bg">
+    <div class="checkin-container">
+
+        <div class="canopus-progress">
+            <div class="progress-step active" id="step1-progress">
+                <div class="step-number">1</div>
+                <div class="step-label">Booking Details</div>
+            </div>
+            <div class="progress-step" id="step2-progress">
+                <div class="step-number">2</div>
+                <div class="step-label">Baggage</div>
+            </div>
+            <div class="progress-step" id="step3-progress">
+                <div class="step-number">3</div>
+                <div class="step-label">Boarding Pass</div>
+            </div>
+        </div>
+
+        <div class="checkin-card">
+
+            <div class="form-section active" id="step1">
+                <h2>Enter Booking Details</h2>
+                <p class="subtitle">Please enter your booking reference and last name to continue</p>
+
+                <div class="alert alert-info">
+                    <i class="fa-solid fa-circle-info"></i> You can check in online 24 hours before your flight departure time.
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bookingRef">Booking Reference (PNR) *</label>
+                        <input type="text" id="bookingRef" placeholder="e.g., ABC1234" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name *</label>
+                        <input type="text" id="lastName" placeholder="As shown on passport" required>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="nextStep(1)">Continue</button>
+                </div>
+            </div>
+
+            <div class="form-section" id="step2">
+                <h2>Add Baggage</h2>
+                <p class="subtitle">Select additional baggage if needed</p>
+
+                <div class="baggage-options">
+                    <div class="baggage-option" onclick="selectBaggage(0)" data-price="0">
+                        <div class="baggage-info">
+                            <h4>Cabin Baggage Only</h4>
+                            <p>1 cabin bag (max 7kg, 55x40x23cm)</p>
+                        </div>
+                        <div class="baggage-price">Included</div>
+                    </div>
+
+                    <div class="baggage-option" onclick="selectBaggage(1)" data-price="25">
+                        <div class="baggage-info">
+                            <h4>1 Checked Bag</h4>
+                            <p>1 checked bag (max 23kg)</p>
+                        </div>
+                        <div class="baggage-price">$25</div>
+                    </div>
+
+                    <div class="baggage-option" onclick="selectBaggage(2)" data-price="45">
+                        <div class="baggage-info">
+                            <h4>2 Checked Bags</h4>
+                            <p>2 checked bags (max 23kg each)</p>
+                        </div>
+                        <div class="baggage-price">$45</div>
+                    </div>
+                </div>
+
+                <div class="summary-section">
+                    <div class="summary-row">
+                        <span>Baggage Fee</span>
+                        <span id="baggageFee">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-secondary" onclick="prevStep(2)">Back</button>
+                    <button class="btn btn-primary" onclick="nextStep(2)">Confirm Check-in</button>
+                </div>
+            </div>
+
+            <div class="form-section" id="step3">
+                <h2>Check-in Complete!</h2>
+                <p class="subtitle">Your boarding pass is ready</p>
+
+                <div class="boarding-pass">
+                    <div class="boarding-pass-content">
+                        <div class="bp-header">
+                            <div class="bp-airline">Canopus Airlines</div>
+                            <div class="bp-flight">Flight CA 1234</div>
+                        </div>
+
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="font-size: 14px; color: #EEEEEE;">PASSENGER</div>
+                            <div style="font-size: 24px; font-weight: bold; margin-top: 5px;" id="passengerName">JOHN DOE</div>
+                        </div>
+
+                        <div class="bp-route">
+                            <div class="bp-location">
+                                <div class="bp-code">IST</div>
+                                <div class="bp-city">Istanbul</div>
+                            </div>
+                            <div class="bp-arrow">→</div>
+                            <div class="bp-location">
+                                <div class="bp-code">JFK</div>
+                                <div class="bp-city">New York</div>
+                            </div>
+                        </div>
+
+                        <div class="bp-details">
+                            <div class="bp-detail">
+                                <div class="bp-label">DATE</div>
+                                <div class="bp-value" id="flightDate">17 DEC</div>
+                            </div>
+                            <div class="bp-detail">
+                                <div class="bp-label">BOARDING</div>
+                                <div class="bp-value">14:30</div>
+                            </div>
+                            <div class="bp-detail">
+                                <div class="bp-label">SEAT</div>
+                                <div class="bp-value" id="seatNumber">12A</div>
+                            </div>
+                            <div class="bp-detail">
+                                <div class="bp-label">GATE</div>
+                                <div class="bp-value">B23</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="window.print()">Print Boarding Pass</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/CheckinScript.js")"></script>

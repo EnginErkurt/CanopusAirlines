@@ -27,6 +27,8 @@
           <Property Name="price_business" Type="decimal" Precision="10" Scale="2" />
           <Property Name="flight_number" Type="varchar" MaxLength="50" />
           <Property Name="available_seats" Type="int" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" />
+          <Property Name="capacity" Type="int" />
         </EntityType>
         <EntityType Name="Passengers">
           <Key>
@@ -177,6 +179,8 @@
           <Property Name="flight_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="available_seats" Type="Int32" />
           <NavigationProperty Name="Tickets" Relationship="CanopusAirportsModel.FK__Tickets__flight___398D8EEE" FromRole="Flights" ToRole="Tickets" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="capacity" Type="Int32" />
         </EntityType>
         <EntityType Name="Passengers">
           <Key>
@@ -274,6 +278,8 @@
           <EntitySetMapping Name="Flights">
             <EntityTypeMapping TypeName="CanopusAirportsModel.Flights">
               <MappingFragment StoreEntitySet="Flights">
+                <ScalarProperty Name="capacity" ColumnName="capacity" />
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="available_seats" ColumnName="available_seats" />
                 <ScalarProperty Name="flight_number" ColumnName="flight_number" />
                 <ScalarProperty Name="price_business" ColumnName="price_business" />
