@@ -1,0 +1,40 @@
+PROJECT TITLE: CANOPUS AIRLINES 
+
+Engin Erkurt - Team Leader
+Meryem Betül Abdulrahman
+Samira Yıldız
+Sıla Yahşi
+Şevval Boyraz
+
+
+INSTALLATION AND DATABASE CREATION (IMPORTANT)
+------------------------------------------------------------------------
+Before running the project, please create the database on SQL Server.  To avoid errors, run the SQL scripts in the FOLLOWING ORDER:
+
+1. CanopusAirports.sql   (Creates airport tables)
+2. FlightDatas.sql       (Creates flight schedules and basic flight data)
+3. Users.sql             (Creates the user table)
+4. PassengerBookings.sql (Creates Passenger and Ticket tables - Includes relationships)
+5. AlterFlight.sql       (Adds 'Status' and 'Capacity' properties to existing tables)
+6. AlterProcedure.sql    (Updates the stored procedures required for search and login operations)
+7. Admins.sql            (Adds the administrator account to the system)
+
+------------------------------------------------------------------------
+
+The project is configured to run on LocalDB by default. 
+Please check the "connectionString" in the Web.config file if necessary.
+
+------------------------------------------------------------------------
+LOGIN CREDENTIALS (FOR TESTING)
+------------------------------------------------------------------------
+You can use the following credentials to test the system:
+
+1. ADMIN PANEL ACCESS:
+   - URL: /Admin/Index
+   - Email: adminengin@canopus.com
+   - Password: adminengin123
+
+2. USER ACCESS:
+   - You can create a new account via the "Sign Up" button and then use the "Sign in" button.
+
+-- You can see and edit/delete Airports with URL: /Airports
