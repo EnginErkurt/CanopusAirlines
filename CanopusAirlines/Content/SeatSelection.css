@@ -1,4 +1,4 @@
-﻿/* Reset & Fonts */
+﻿
 * {
     margin: 0;
     padding: 0;
@@ -11,7 +11,7 @@ body {
     color: #333;
 }
 
-/* Header (Consistent with previous page) */
+
 header {
     background-color: #1f2937;
     padding: 15px 0;
@@ -193,7 +193,7 @@ nav a {
         background-color: #b71c1c;
     }
 
-/* Plane Visualization */
+
 .plane-container {
     flex: 2;
     display: flex;
@@ -204,7 +204,7 @@ nav a {
     background-color: #fff;
     width: 380px;
     padding: 60px 40px 60px 40px;
-    border-radius: 150px 150px 30px 30px; /* Cockpit shape */
+    border-radius: 150px 150px 30px 30px; 
     border: 4px solid #d1d5db;
     position: relative;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
@@ -262,25 +262,23 @@ nav a {
     position: absolute;
     left: 10px;
 }
-/* Row numbers outside */
 
-/* Individual Seat */
 .seat {
     width: 32px;
     height: 38px;
     background: white;
     border: 1px solid #cbd5e1;
-    border-radius: 6px 6px 10px 10px; /* Chair shape */
+    border-radius: 6px 6px 10px 10px; 
     cursor: pointer;
     position: relative;
     transition: all 0.2s;
     display: flex;
     justify-content: center;
-    align-items: flex-end; /* Icon at bottom */
+    align-items: flex-end; 
     padding-bottom: 4px;
 }
 
-    .seat::after { /* Headrest */
+    .seat::after { 
         content: '';
         position: absolute;
         top: -1px;
@@ -327,7 +325,7 @@ nav a {
     width: 20px;
 }
 
-/* Tooltip (Hover Popup) */
+
 .seat-tooltip {
     position: fixed;
     background: #1f2937;
@@ -335,7 +333,7 @@ nav a {
     padding: 10px 15px;
     border-radius: 6px;
     font-size: 13px;
-    pointer-events: none; /* Mouse passes through */
+    pointer-events: none; 
     opacity: 0;
     transition: opacity 0.2s;
     z-index: 1000;
@@ -344,7 +342,7 @@ nav a {
     text-align: center;
 }
 
-    .seat-tooltip::after { /* Arrow down */
+    .seat-tooltip::after { 
         content: '';
         position: absolute;
         top: 100%;

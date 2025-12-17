@@ -17,38 +17,38 @@ namespace CanopusAirlines.Controllers
             return View();
         }
 
-        // 3. EKLEME: Arama butonuna basılınca çalışacak yeni metot
+        
         public ActionResult Search(int from_id, int to_id, DateTime flight_date, string flight_class, DateTime? return_date, string trip_type, int passenger_count = 1)
         {
-            // 1. Hata Önlemleri
+           
             if (string.IsNullOrEmpty(flight_class)) flight_class = "Economy";
             if (passenger_count < 1) passenger_count = 1;
 
-            // 2. ViewModel Çantasını Hazırlıyoruz
+           
             SearchViewModel model = new SearchViewModel();
 
-            // 3. GİDİŞ UÇUŞLARINI BUL (Standart İşlem)
+           
             model.OutboundFlights = db.sp_SearchFlights(from_id, to_id, flight_date, flight_class).ToList();
 
-            // 4. DÖNÜŞ UÇUŞLARINI BUL (Eğer Round Trip seçildiyse)
+           
             if (trip_type == "round" && return_date != null)
             {
                 model.IsRoundTrip = true;
 
-                // DİKKAT: Dönüşte Nereden ve Nereye yer değiştirir! (to_id -> from_id)
+               
                 model.InboundFlights = db.sp_SearchFlights(to_id, from_id, return_date.Value, flight_class).ToList();
             }
             else
             {
                 model.IsRoundTrip = false;
-                model.InboundFlights = new List<sp_SearchFlights_Result>(); // Boş liste
+                model.InboundFlights = new List<sp_SearchFlights_Result>(); 
             }
 
-            // Hesaplamalar için ViewBag kullanmaya devam
+            
             ViewBag.PassengerCount = passenger_count;
             ViewBag.SelectedClass = flight_class;
 
-            // Çantayı (modeli) sayfaya gönderiyoruz
+            
             return View(model);
         }
 
@@ -97,15 +97,14 @@ namespace CanopusAirlines.Controllers
         }
 
 
-        // POST: Seçilen uçuşları alıp ödeme/yolcu sayfasına yönlendirir
-        // Search sayfasından "Continue" butonuna basınca buraya düşecek
+        
         [HttpPost]
         public ActionResult PassengerDetails(int selected_outbound_id, int? selected_inbound_id, int passenger_count)
         {
             BookingViewModel model = new BookingViewModel();
             decimal totalPrice = 0;
 
-            // 1. GİDİŞ UÇUŞUNU BUL VE FİYATI EKLE
+            
             var outbound = db.Flights.Find(selected_outbound_id);
             model.OutboundFlight = outbound;
             model.OutboundFlightId = selected_outbound_id;
@@ -115,7 +114,7 @@ namespace CanopusAirlines.Controllers
                 totalPrice += (decimal)outbound.price * passenger_count;
             }
 
-            // 2. DÖNÜŞ UÇUŞU VARSA BUL VE FİYATI EKLE (DÜZELTME BURADA)
+            
             if (selected_inbound_id != null)
             {
                 var inbound = db.Flights.Find(selected_inbound_id);
@@ -124,12 +123,12 @@ namespace CanopusAirlines.Controllers
 
                 if (inbound.price != null)
                 {
-                    // Dönüş fiyatını da toplama ekliyoruz
+                    
                     totalPrice += (decimal)inbound.price * passenger_count;
                 }
             }
 
-            // 3. TOPLAM FİYATI MODELE YAZ
+            
             model.TotalPrice = totalPrice;
 
             return View(model);
@@ -138,18 +137,17 @@ namespace CanopusAirlines.Controllers
         [HttpPost]
         public ActionResult SeatSelection(BookingViewModel model)
         {
-            // 1. Uçuşu Bul
+            
             var flight = db.Flights.Find(model.OutboundFlightId);
             model.OutboundFlight = flight;
 
-            // 2. Havalimanlarını Manuel Bul (Hata Çözümü)
-            // İlişki (navigation property) kullanmak yerine doğrudan ID ile buluyoruz
+            
             var depAirport = db.Airports.Find(flight.departure_id);
             var arrAirport = db.Airports.Find(flight.arrival_id);
 
-            // 3. İsimleri Modele Yükle
-            model.FromCity = depAirport.city; // Örn: Istanbul
-            model.ToCity = arrAirport.city;   // Örn: East London
+            
+            model.FromCity = depAirport.city; 
+            model.ToCity = arrAirport.city;   
 
             return View(model);
         }
@@ -157,7 +155,7 @@ namespace CanopusAirlines.Controllers
         [HttpPost]
         public ActionResult CompleteBooking(BookingViewModel model)
         {
-            // 1. YOLCUYU KAYDET
+            
             Passengers newPassenger = new Passengers();
             newPassenger.first_name = model.FirstName;
             newPassenger.last_name = model.LastName;
@@ -171,14 +169,14 @@ namespace CanopusAirlines.Controllers
 
             string pnr = GeneratePNR();
 
-            // Kullanıcı giriş yapmış mı kontrol ediyoruz.
+            
             int? loggedInUserId = null;
             if (Session["UserID"] != null)
             {
                 loggedInUserId = Convert.ToInt32(Session["UserID"]);
             }
 
-            // --- TICKET VIEW MODEL HAZIRLIĞI ---
+            
             TicketViewModel ticketModel = new TicketViewModel();
             ticketModel.PassengerName = model.FirstName.ToUpper() + " " + model.LastName.ToUpper();
             ticketModel.PnrCode = pnr;
@@ -186,7 +184,7 @@ namespace CanopusAirlines.Controllers
             ticketModel.TotalAmount = model.TotalPrice;
             ticketModel.Flights = new List<FlightDetail>();
 
-            // 2. GİDİŞ BİLETİNİ KAYDET
+            
             Tickets ticketOut = new Tickets();
             ticketOut.flight_id = model.OutboundFlightId;
             ticketOut.passenger_id = newPassenger.passenger_id;
@@ -195,20 +193,20 @@ namespace CanopusAirlines.Controllers
             ticketOut.pnr_code = pnr;
             ticketOut.booking_date = DateTime.Now;
 
-            // Kullanıcı ID'sini bilete yazıyoruz
+            
             ticketOut.user_id = loggedInUserId;
 
             db.Tickets.Add(ticketOut);
 
-            // --- HATA DÜZELTME KISMI (GİDİŞ) ---
+            
             var outFlightDb = db.Flights.Find(model.OutboundFlightId);
 
-            // --- STOK DÜŞME İŞLEMİ (GİDİŞ) ---
+            
             if (outFlightDb.available_seats > 0)
             {
                 outFlightDb.available_seats -= 1;
             }
-            // ----------------------------------
+            
 
             var outDepAirport = db.Airports.Find(outFlightDb.departure_id);
             var outArrAirport = db.Airports.Find(outFlightDb.arrival_id);
@@ -222,7 +220,7 @@ namespace CanopusAirlines.Controllers
                 Date = (DateTime)outFlightDb.flight_date
             });
 
-            // 3. EĞER DÖNÜŞ VARSA KAYDET VE MODELE EKLE
+            
             if (model.InboundFlightId != null)
             {
                 Tickets ticketIn = new Tickets();
@@ -233,20 +231,20 @@ namespace CanopusAirlines.Controllers
                 ticketIn.pnr_code = pnr;
                 ticketIn.booking_date = DateTime.Now;
 
-                // Dönüş biletine de Kullanıcı ID'sini yazıyoruz
+                
                 ticketIn.user_id = loggedInUserId;
 
                 db.Tickets.Add(ticketIn);
 
-                // --- HATA DÜZELTME KISMI (DÖNÜŞ) ---
+                
                 var inFlightDb = db.Flights.Find(model.InboundFlightId);
 
-                // --- STOK DÜŞME İŞLEMİ (DÖNÜŞ) ---
+                
                 if (inFlightDb.available_seats > 0)
                 {
                     inFlightDb.available_seats -= 1;
                 }
-                // ----------------------------------
+                
 
                 var inDepAirport = db.Airports.Find(inFlightDb.departure_id);
                 var inArrAirport = db.Airports.Find(inFlightDb.arrival_id);
@@ -261,9 +259,9 @@ namespace CanopusAirlines.Controllers
                 });
             }
 
-            db.SaveChanges(); // Hem bileti kaydeder hem de stokları günceller
+            db.SaveChanges(); 
 
-            // 4. TICKET SAYFASINI AÇ
+          
             return View("TicketConfirmation", ticketModel);
         }
 
@@ -272,36 +270,36 @@ namespace CanopusAirlines.Controllers
             return View();
         }
 
-        // CHECK-IN İÇİN BİLET SORGULAMA
+        
         [HttpPost]
         public JsonResult GetTicketCheckIn(string pnr, string lastname)
         {
-            // PNR ve Soyad eşleşen bileti bul (Büyük/küçük harf duyarsız olsun diye ToLower kullanıyoruz)
+           
             var ticket = db.Tickets.FirstOrDefault(t =>
                 t.pnr_code == pnr &&
                 t.Passengers.last_name.ToLower() == lastname.ToLower());
 
             if (ticket != null)
             {
-                // Uçuş ve Havalimanı bilgilerini çekelim
+                
                 var flight = db.Flights.Find(ticket.flight_id);
                 var depAirport = db.Airports.Find(flight.departure_id);
                 var arrAirport = db.Airports.Find(flight.arrival_id);
 
-                // JS'e göndereceğimiz paketi hazırlayalım
+                
                 var result = new
                 {
                     success = true,
                     passengerName = ticket.Passengers.first_name.ToUpper() + " " + ticket.Passengers.last_name.ToUpper(),
                     flightNo = flight.flight_number,
-                    originCode = depAirport.iata,     // Örn: IST
-                    originCity = depAirport.city,     // Örn: Istanbul
-                    destCode = arrAirport.iata,       // Örn: JFK
-                    destCity = arrAirport.city,       // Örn: New York
-                    date = flight.flight_date.Value.ToString("dd MMM yyyy"), // 17 DEC 2025
-                    time = flight.flight_date.Value.ToString("HH:mm"),       // 14:30
+                    originCode = depAirport.iata,     
+                    originCity = depAirport.city,     
+                    destCode = arrAirport.iata,       
+                    destCity = arrAirport.city,       
+                    date = flight.flight_date.Value.ToString("dd MMM yyyy"), 
+                    time = flight.flight_date.Value.ToString("HH:mm"),     
                     seat = ticket.seat_number,
-                    gate = "A" + new Random().Next(1, 20) // Kapı no veritabanında yoksa rastgele ata
+                    gate = "A" + new Random().Next(1, 20) 
                 };
 
                 return Json(result);
@@ -312,7 +310,62 @@ namespace CanopusAirlines.Controllers
             }
         }
 
-        // Yardımcı PNR Fonksiyonu
+        
+        public ActionResult MyReservations()
+        {
+            
+            if (Session["UserID"] == null)
+            {
+                
+                return RedirectToAction("Login", "Auth");
+            }
+
+            int userId = Convert.ToInt32(Session["UserID"]);
+
+            
+            var userTickets = db.Tickets.Where(t => t.user_id == userId).ToList();
+
+            List<ReservationViewModel> model = new List<ReservationViewModel>();
+
+            
+            foreach (var t in userTickets)
+            {
+                
+                var flight = db.Flights.Find(t.flight_id);
+                var depAirport = db.Airports.Find(flight.departure_id);
+                var arrAirport = db.Airports.Find(flight.arrival_id);
+                var passenger = db.Passengers.Find(t.passenger_id);
+
+                ReservationViewModel vm = new ReservationViewModel();
+                vm.PNR = t.pnr_code;
+                vm.FlightNo = flight.flight_number;
+                vm.FromCode = depAirport.iata;
+                vm.FromCity = depAirport.city;
+                vm.ToCode = arrAirport.iata;
+                vm.ToCity = arrAirport.city;
+                vm.DepTime = (DateTime)flight.flight_date;
+
+                
+                vm.ArrTime = vm.DepTime.AddHours(3);
+
+                vm.Seat = t.seat_number;
+                vm.PassengerName = passenger.first_name + " " + passenger.last_name;
+                vm.Price = (decimal)t.total_price;
+
+                
+                if (vm.DepTime < DateTime.Now)
+                    vm.Status = "Completed";
+                else
+                    vm.Status = "Upcoming";
+
+                model.Add(vm);
+            }
+
+            
+            return View(model.OrderByDescending(x => x.DepTime).ToList());
+        }
+
+        
         private string GeneratePNR()
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

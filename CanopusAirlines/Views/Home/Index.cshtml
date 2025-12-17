@@ -1,7 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home";
 }
-<!-- engin -->
 
 <script src="@Url.Content("~/Scripts/HomeScript.js")"></script>
 
@@ -124,7 +123,7 @@
         <h3>Airport Services</h3>
         <p>Discover our lounge, baggage, and transportation services.</p>
     </a>
-    <div class="link-card" onclick="alert('Reservation Management page is coming soon!')">
+    <div class="link-card" onclick="location.href='@Url.Action("MyReservations", "Home")'">
         <h3>My Reservations</h3>
         <p>View and manage your current reservations.</p>
     </div>

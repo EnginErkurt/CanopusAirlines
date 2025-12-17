@@ -1,4 +1,3 @@
-        // Page animations
         function animateValue(id, start, end, duration) {
             var obj = document.getElementById(id);
             var range = end - start;

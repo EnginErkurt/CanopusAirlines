@@ -19,19 +19,19 @@ namespace CanopusAirlines.Controllers
         [HttpPost]
         public JsonResult Login(string username, string password)
         {
-            // SADECE 'Admin' ROLÜNE SAHİP KULLANICIYI GETİR
+            
             var user = db.Users.FirstOrDefault(u => u.Email == username && u.Password == password);
 
             if (user != null)
             {
-                // EKSTRA GÜVENLİK KONTROLÜ
+                
                 if (user.Role == "Admin")
                 {
                     return Json(new { success = true, name = user.FirstName + " " + user.LastName, role = user.Role });
                 }
                 else
                 {
-                    // Kullanıcı var ama Admin değilse hata ver
+                    
                     return Json(new { success = false, message = "Unauthorized access! Only administrators may enter." });
                 }
             }
@@ -41,11 +41,11 @@ namespace CanopusAirlines.Controllers
             }
         }
 
-        // --- HATA VEREN KISIM BURASIYDI, MANUEL JOIN İLE DÜZELTİLDİ ---
+        
         [HttpGet]
         public JsonResult GetAllData()
         {
-            // A) UÇUŞLARI ÇEKERKEN HAVALİMANLARINI MANUEL BAĞLIYORUZ (JOIN)
+            
             var flightsQuery = from f in db.Flights
                                join dep in db.Airports on f.departure_id equals dep.airport_id
                                join arr in db.Airports on f.arrival_id equals arr.airport_id
@@ -72,7 +72,7 @@ namespace CanopusAirlines.Controllers
                 status = f.status ?? "On Time"
             }).ToList();
 
-            // B) BİLETLERİ ÇEKERKEN DE MANUEL BAĞLIYORUZ
+            
             var bookingsQuery = from t in db.Tickets
                                 join p in db.Passengers on t.passenger_id equals p.passenger_id
                                 join f in db.Flights on t.flight_id equals f.flight_id
@@ -95,7 +95,7 @@ namespace CanopusAirlines.Controllers
             return Json(new { flights = flights, bookings = bookings }, JsonRequestBehavior.AllowGet);
         }
 
-        // 4. YENİ UÇUŞ EKLEME
+        
         [HttpPost]
         public JsonResult AddFlight(string no, string fromIata, string toIata, decimal price, int seats, string date, string status)
         {
@@ -130,7 +130,7 @@ namespace CanopusAirlines.Controllers
             }
         }
 
-        // 5. UÇUŞ SİLME
+        
         [HttpPost]
         public JsonResult DeleteFlight(string flightNo)
         {
@@ -146,7 +146,7 @@ namespace CanopusAirlines.Controllers
             return Json(new { success = false });
         }
 
-        // 6. UÇUŞ GÜNCELLEME
+        
         [HttpPost]
         public JsonResult EditFlight(string no, string from, string to, string date, string status)
         {
@@ -161,7 +161,7 @@ namespace CanopusAirlines.Controllers
             return Json(new { success = false });
         }
 
-        // 7. BİLET İPTAL
+        
         [HttpPost]
         public JsonResult CancelTicket(string pnr)
         {

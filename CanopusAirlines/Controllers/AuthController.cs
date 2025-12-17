@@ -10,11 +10,10 @@ namespace CanopusAirlines.Controllers
 {
     public class AuthController : Controller
     {
-        // BAĞLANTI ADRESİ (Web.config'deki isme göre burayı değiştirebilirsin ama bu da çalışır)
-        // Eğer çalışmazsa "Server=(localdb)\\MSSQLLocalDB" kısmını kontrol et.
+        
         string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=CanopusAirports;Trusted_Connection=True;";
 
-        // --- GİRİŞ YAP (LOGIN) ---
+        
         [HttpGet]
         public ActionResult Login()
         {
@@ -36,15 +35,14 @@ namespace CanopusAirlines.Controllers
                     con.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
 
-                    if (dr.Read()) // Kullanıcı bulundu!
+                    if (dr.Read()) 
                     {
-                        // ASP.NET SESSION (Oturum) Özelliği
-                        // Kullanıcı bilgilerini sunucu hafızasına atıyoruz.
+                        
                         Session["UserID"] = dr["UserID"].ToString();
                         Session["UserEmail"] = dr["Email"].ToString();
                         Session["UserName"] = dr["FirstName"].ToString();
 
-                        // Ana Sayfaya gönder
+                        
                         return RedirectToAction("Index", "Home");
                     }
                     else
@@ -61,7 +59,7 @@ namespace CanopusAirlines.Controllers
             }
         }
 
-        // --- KAYIT OL (REGISTER) ---
+        
         [HttpGet]
         public ActionResult Register()
         {
@@ -83,12 +81,12 @@ namespace CanopusAirlines.Controllers
                 try
                 {
                     con.Open();
-                    // ExecuteScalar tek bir değer döndürür (Bizim prosedürde 1 veya 0)
+                    
                     int result = Convert.ToInt32(cmd.ExecuteScalar());
 
                     if (result == 1)
                     {
-                        // Başarılıysa Giriş sayfasına at
+                        
                         return RedirectToAction("Login");
                     }
                     else
@@ -105,10 +103,10 @@ namespace CanopusAirlines.Controllers
             }
         }
 
-        // --- ÇIKIŞ YAP (LOGOUT) ---
+        
         public ActionResult Logout()
         {
-            Session.Clear(); // Tüm hafızayı temizle
+            Session.Clear(); 
             Session.Abandon();
             return RedirectToAction("Index", "Home");
         }

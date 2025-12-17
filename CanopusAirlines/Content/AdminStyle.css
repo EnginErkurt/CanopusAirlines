@@ -1,4 +1,4 @@
-﻿/* --- GENEL AYARLAR --- */
+﻿
 * {
     margin: 0;
     padding: 0;
@@ -7,17 +7,15 @@
 }
 
 body {
-    background-color: #EEEEEE; /* Ana sayfa arka planı ile aynı */
-    color: #222831; /* Ana metin rengi */
+    background-color: #EEEEEE; 
+    color: #222831; 
     height: 100vh;
     overflow: hidden;
 }
 
-/* --- LOGIN EKRANI --- */
 .login-container {
     width: 100%;
     height: 100vh;
-    /* Ana sayfadaki Hero gradienti ile aynı */
     background: linear-gradient(135deg, #222831 0%, #393E46 100%);
     display: flex;
     justify-content: center;
@@ -27,7 +25,7 @@ body {
 .login-box {
     background: #EEEEEE;
     padding: 40px;
-    border-radius: 15px; /* Ana sayfadaki yuvarlaklık */
+    border-radius: 15px; 
     box-shadow: 0 5px 20px rgba(0,0,0,0.2);
     width: 350px;
     text-align: center;
@@ -39,7 +37,7 @@ body {
 
     .logo-area i {
         font-size: 3rem;
-        color: #00ADB5; /* Vurgu rengi */
+        color: #00ADB5; 
         margin-bottom: 10px;
     }
 
@@ -70,7 +68,7 @@ body {
     }
 
         .input-group input:focus {
-            border-color: #00ADB5; /* Odaklanınca turkuaz */
+            border-color: #00ADB5; 
         }
 
 .btn-login {
@@ -97,7 +95,7 @@ body {
     font-size: 0.9rem;
 }
 
-/* --- DASHBOARD LAYOUT --- */
+
 .dashboard-container {
     display: flex;
     height: 100vh;
@@ -107,10 +105,10 @@ body {
     display: none !important;
 }
 
-/* --- SIDEBAR (YAN MENÜ) --- */
+
 .sidebar {
     width: 260px;
-    background-color: #222831; /* Header rengi ile aynı */
+    background-color: #222831; 
     color: #EEEEEE;
     display: flex;
     flex-direction: column;
@@ -124,7 +122,7 @@ body {
 }
 
     .sidebar-header h3 {
-        color: #00ADB5; /* Logo rengi */
+        color: #00ADB5; 
         font-size: 24px;
     }
 
@@ -153,7 +151,7 @@ body {
         .nav-links li:hover {
             background-color: #393E46;
             color: #00ADB5;
-            padding-left: 30px; /* Hafif kayma efekti */
+            padding-left: 30px; 
         }
 
 .active-link {
@@ -162,7 +160,7 @@ body {
     border-left: 4px solid #00ADB5;
 }
 
-/* --- ANA İÇERİK ALANI --- */
+
 .main-content {
     flex: 1;
     padding: 20px;
@@ -175,8 +173,8 @@ header {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
-    background-color: transparent; /* Admin panelde header şeffaf olsun, sidebar rengi veriyor */
-    box-shadow: none; /* Ana sayfadaki gölgeyi kaldırdık, içerik temiz dursun */
+    background-color: transparent; 
+    box-shadow: none; 
     padding: 0;
 }
 
@@ -198,7 +196,6 @@ header {
         color: #00ADB5;
     }
 
-/* --- İSTATİSTİK KARTLARI --- */
 .stats-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -209,7 +206,7 @@ header {
 .stat-card {
     background: white;
     padding: 20px;
-    border-radius: 15px; /* Ana sayfa ile uyumlu */
+    border-radius: 15px; 
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     display: flex;
     align-items: center;
@@ -240,7 +237,7 @@ header {
     font-size: 0.9rem;
 }
 
-/* --- SAYFA İÇERİĞİ VE TABLOLAR --- */
+
 .content-page {
     background: white;
     padding: 20px;
@@ -261,8 +258,8 @@ header {
     }
 
 .btn-add {
-    background-color: #222831; /* Koyu buton */
-    color: #00ADB5; /* Turkuaz yazı */
+    background-color: #222831; 
+    color: #00ADB5; 
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -276,7 +273,7 @@ header {
         color: #222831;
     }
 
-/* Arama Kutusu */
+
 .search-box {
     margin-bottom: 20px;
 }
@@ -297,7 +294,7 @@ header {
         background-color: white;
     }
 
-/* Tablo Tasarımı */
+
 .table-responsive {
     overflow-x: auto;
 }
@@ -309,7 +306,7 @@ header {
 }
 
     .data-table th {
-        background-color: #222831; /* Header rengi */
+        background-color: #222831; 
         color: #EEEEEE;
         padding: 15px;
         text-align: left;
@@ -331,10 +328,10 @@ header {
     }
 
     .data-table tr:hover {
-        background-color: #f1fcfc; /* Çok açık turkuaz tonu */
+        background-color: #f1fcfc; 
     }
 
-/* Tablo İçi Butonlar */
+
 .action-btn {
     padding: 5px 10px;
     border: 1px solid #00ADB5;
@@ -362,17 +359,17 @@ header {
 }
 
     .btn-small-delete:hover {
-        background-color: #e74c3c; /* Silme işlemi için kırmızı hover */
+        background-color: #e74c3c; 
     }
 
-/* --- MODAL (POP-UP) --- */
+
 .modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(34, 40, 49, 0.7); /* Koyu yarı saydam */
+    background-color: rgba(34, 40, 49, 0.7); 
     display: flex;
     justify-content: center;
     align-items: center;

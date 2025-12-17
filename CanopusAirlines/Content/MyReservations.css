@@ -1,0 +1,222 @@
+﻿
+
+
+.reservations-body-bg {
+    background-color: #e2e2e2;
+    min-height: 100vh;
+    padding-top: 120px; 
+    padding-bottom: 50px;
+}
+
+.page-header {
+    background: linear-gradient(135deg, #222831 0%, #393E46 100%);
+    padding: 60px 20px;
+    text-align: center;
+    color: white;
+    border-radius: 0 0 20px 20px; 
+    margin-bottom: 40px;
+}
+
+    .page-header h1 {
+        font-size: 42px;
+        margin-bottom: 15px;
+        color: #EEEEEE;
+    }
+
+    .page-header p {
+        font-size: 18px;
+        color: #00ADB5;
+    }
+
+.reservations-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.reservations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+
+.reservation-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: fadeIn 0.5s ease-out;
+}
+
+    .reservation-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+
+.reservation-header {
+    background: linear-gradient(135deg, #00ADB5 0%, #00969e 100%);
+    padding: 15px 30px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reservation-pnr {
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.reservation-status {
+    background: rgba(255,255,255,0.2);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.reservation-body {
+    padding: 30px;
+}
+
+
+.flight-route {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.airport-code {
+    font-size: 32px;
+    font-weight: bold;
+    color: #222831;
+}
+
+.airport-name {
+    font-size: 14px;
+    color: #666;
+}
+
+.flight-time {
+    font-size: 20px;
+    font-weight: 600;
+    color: #00ADB5;
+    margin-top: 5px;
+}
+
+.flight-date {
+    font-size: 14px;
+    color: #888;
+}
+
+.route-arrow {
+    color: #00ADB5;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flight-duration {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 5px;
+}
+
+
+.reservation-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-label {
+    font-size: 12px;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.detail-value {
+    font-size: 16px;
+    font-weight: bold;
+    color: #222831;
+}
+
+
+.passenger-info {
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.passenger-name {
+    font-weight: bold;
+    color: #222831;
+    font-size: 16px;
+}
+
+.passenger-seat {
+    color: #00ADB5;
+    font-weight: bold;
+}
+
+
+.empty-state {
+    background-color: white;
+    padding: 60px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.empty-icon {
+    font-size: 60px;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+.btn-book-flight {
+    background-color: #00ADB5;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+    .btn-book-flight:hover {
+        background-color: #008c93;
+        color: white;
+    }
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

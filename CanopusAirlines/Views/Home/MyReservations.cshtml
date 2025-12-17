@@ -1,0 +1,85 @@
+﻿@model List<CanopusAirlines.Models.ReservationViewModel>
+@{
+    ViewBag.Title = "Biletlerim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="@Url.Content("~/Content/MyReservations.css")">
+
+<div class="reservations-body-bg">
+
+    <div class="page-header">
+        <h1>My Reservations</h1>
+        <p>Manage all your flight reservations here</p>
+    </div>
+
+    <div class="reservations-container">
+
+        @if (Model.Count == 0)
+        {
+            <div class="empty-state">
+                <div class="empty-icon">✈️</div>
+                <h2>No Reservations Found</h2>
+                <p>You haven't booked any flights with us yet.</p>
+                <a href="@Url.Action("Index", "Home")" class="btn-book-flight">Book a New Flight</a>
+            </div>
+        }
+        else
+        {
+            <div class="reservations-list">
+                @foreach (var item in Model)
+                {
+                    <div class="reservation-card">
+                        <div class="reservation-header">
+                            <div class="reservation-pnr">PNR: @item.PNR</div>
+                            <div class="reservation-status">@item.Status</div>
+                        </div>
+
+                        <div class="reservation-body">
+                            <div class="flight-route">
+                                <div class="route-point">
+                                    <div class="airport-code">@item.FromCode</div>
+                                    <div class="airport-name">@item.FromCity</div>
+                                    <div class="flight-time">@item.DepTime.ToString("HH:mm")</div>
+                                    <div class="flight-date">@item.DepTime.ToString("dd MMM yyyy")</div>
+                                </div>
+
+                                <div class="route-arrow">
+                                    <i class="fa-solid fa-plane"></i>
+                                    <div class="flight-duration">Direct</div>
+                                </div>
+
+                                <div class="route-point">
+                                    <div class="airport-code">@item.ToCode</div>
+                                    <div class="airport-name">@item.ToCity</div>
+                                    <div class="flight-time">@item.ArrTime.ToString("HH:mm")</div>
+                                    <div class="flight-date">@item.ArrTime.ToString("dd MMM yyyy")</div>
+                                </div>
+                            </div>
+
+                            <div class="reservation-details">
+                                <div class="detail-item">
+                                    <div class="detail-label">Flight Number</div>
+                                    <div class="detail-value">@item.FlightNo</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">Class</div>
+                                    <div class="detail-value">Economy</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">Price</div>
+                                    <div class="detail-value">@item.Price.ToString("N0") ₺</div>
+                                </div>
+                            </div>
+
+                            <div class="passenger-info">
+                                <span class="passenger-name"><i class="fa-solid fa-user"></i> @item.PassengerName</span>
+                                <span class="passenger-seat">Seat: @item.Seat</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>

@@ -207,6 +207,7 @@
     <Compile Include="Models\Passengers.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReservationViewModel.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Models\sp_SearchFlights_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -226,6 +227,7 @@
     <Content Include="Content\airport_services.css" />
     <Content Include="Content\baggage.css" />
     <Content Include="Content\CheckinStyle.css" />
+    <Content Include="Content\MyReservations.css" />
     <Content Include="Content\PassengerStyle.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -396,6 +398,7 @@
     <Content Include="Views\Auth\Register.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Home\CheckIn.cshtml" />
+    <Content Include="Views\Home\MyReservations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

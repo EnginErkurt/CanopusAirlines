@@ -1,4 +1,4 @@
-﻿/* 1. SAYFA YAPISI */
+﻿
 .checkin-body-bg {
     background-color: #e2e2e2;
     min-height: 100vh;
@@ -15,25 +15,25 @@
     z-index: 1;
 }
 
-/* 2. PROGRESS BAR (YENİLENMİŞ MANTIK) */
+
 .canopus-progress {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 40px;
     background-color: white;
-    padding: 30px 0; /* Yanlardan padding'i kaldırdık, flex halledecek */
+    padding: 30px 0; 
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     position: relative;
     overflow: hidden;
 }
 
-    /* ANA GRİ ÇİZGİ (En altta sabit) */
+
     .canopus-progress::before {
         content: '';
         position: absolute;
-        top: 50px; /* (30px padding + 20px yarıçap) */
+        top: 50px; 
         left: 0;
         right: 0;
         height: 4px;
@@ -44,42 +44,42 @@
 
 .progress-step {
     position: relative;
-    flex: 1; /* Hepsi eşit genişlikte */
+    flex: 1; 
     display: flex;
     flex-direction: column;
     align-items: center;
-    z-index: 2; /* Gri çizginin üstünde */
+    z-index: 2; 
 }
 
-    /* MAVİ ÇİZGİ (Sadece TAMAMLANMIŞ adımlardan sonrakine uzanır) */
+    
     .progress-step::after {
         content: '';
         position: absolute;
-        top: 20px; /* Yuvarlağın merkezi */
-        left: 50%; /* Merkezin sağına başla */
-        width: 100%; /* Bir sonraki adımın merkezine kadar uzanır */
+        top: 20px; 
+        left: 50%; 
+        width: 100%; 
         height: 4px;
-        background-color: transparent; /* Varsayılan gizli */
-        z-index: -1; /* Yuvarlağın arkasında kalsın */
+        background-color: transparent; 
+        z-index: -1; 
         transition: background-color 0.3s ease;
     }
 
-    /* Sadece "Completed" olan adımın sağına mavi çizgi çek */
+
     .progress-step.completed::after {
         background-color: #00ADB5;
     }
 
-    /* Son adımın sağına çizgi çekme */
+  
     .progress-step:last-child::after {
         display: none;
     }
 
-/* YUVARLAKLAR (NUMARALAR) */
+
 .step-number {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #EEEEEE; /* ARKAPLAN RENGİ ŞART (Çizgiyi maskelemek için) */
+    background-color: #EEEEEE; 
     color: #393E46;
     display: flex;
     align-items: center;
@@ -87,30 +87,30 @@
     margin-bottom: 10px;
     font-weight: bold;
     font-size: 16px;
-    border: 4px solid white; /* Etrafına beyaz boşluk */
-    box-shadow: 0 0 0 2px white; /* Ekstra maskeleme */
+    border: 4px solid white; 
+    box-shadow: 0 0 0 2px white; 
     position: relative;
-    z-index: 5; /* Çizgilerin kesinlikle üstünde */
+    z-index: 5; 
     transition: all 0.3s;
 }
 
-/* Aktif Adım Stili */
+
 .progress-step.active .step-number {
     background-color: #00ADB5;
     color: white;
     transform: scale(1.1);
     box-shadow: 0 0 0 4px #e0f7fa;
-    border-color: #00ADB5; /* Çerçeveyi de mavi yap */
+    border-color: #00ADB5; 
 }
 
-/* Tamamlanmış Adım Stili */
+
 .progress-step.completed .step-number {
     background-color: #00969e;
     color: white;
     border-color: #00969e;
 }
 
-/* Başlıklar */
+
 .step-label {
     font-size: 14px;
     color: #999;
@@ -122,7 +122,7 @@
     font-weight: bold;
 }
 
-/* --- DİĞER KART VE FORM STİLLERİ (Değişmedi) --- */
+
 .checkin-card {
     background-color: white;
     padding: 40px;

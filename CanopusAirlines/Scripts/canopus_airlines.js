@@ -1,4 +1,4 @@
-        // Slideshow (Welcoming in different languages)
+        //Slideshow (Welcoming in different languages)
         var slideIndex = 0;
         showSlides();
 

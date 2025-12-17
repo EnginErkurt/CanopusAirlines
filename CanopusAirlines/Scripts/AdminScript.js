@@ -1,8 +1,7 @@
-﻿// --- GLOBAL DEĞİŞKENLER ---
-let flights = [];
+﻿let flights = [];
 let bookings = [];
 
-// --- 1. LOGIN PROCESS (GİRİŞ) ---
+//Login
 const loginForm = document.getElementById('loginForm');
 const errorMsg = document.getElementById('error-msg');
 const loginSection = document.getElementById('login-section');
@@ -13,7 +12,7 @@ loginForm.addEventListener('submit', function (e) {
     const userIn = document.getElementById('username').value;
     const passIn = document.getElementById('password').value;
 
-    // FETCH İLE GİRİŞ KONTROLÜ
+
     fetch('/Admin/Login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -40,11 +39,9 @@ function loadDashboard(user) {
     document.getElementById('admin-name').innerText = user.name;
     document.getElementById('admin-role').innerText = user.role;
 
-    // VERİLERİ SUNUCUDAN ÇEK
     refreshData();
 }
 
-// --- 2. VERİLERİ ÇEKME (REFRESH) ---
 function refreshData() {
     fetch('/Admin/GetAllData')
         .then(res => res.json())
@@ -58,7 +55,6 @@ function refreshData() {
         });
 }
 
-// --- 3. DASHBOARD STATS ---
 function calculateStats() {
     const totalTickets = bookings.length;
 
@@ -77,7 +73,6 @@ function calculateStats() {
     document.getElementById('active-flights').innerText = activeFlights;
 }
 
-// --- 4. TABLE MANAGEMENT (RENDER) ---
 function renderFlights(dataToRender) {
     const tbody = document.getElementById('flight-table-body');
     tbody.innerHTML = "";
@@ -127,7 +122,6 @@ function renderPassengers() {
     });
 }
 
-// --- FİLTRELEME ---
 function filterFlights() {
     const query = document.getElementById('searchInput').value.toLowerCase();
     const filteredFlights = flights.filter(f =>
@@ -138,7 +132,6 @@ function filterFlights() {
     renderFlights(filteredFlights);
 }
 
-// --- SİLME İŞLEMLERİ ---
 function deleteBooking(pnr) {
     if (confirm(`PNR: ${pnr} numaralı bileti iptal etmek istiyor musunuz?`)) {
         fetch('/Admin/CancelTicket', {
@@ -155,13 +148,11 @@ function deleteBooking(pnr) {
     }
 }
 
-// --- SAYFA GEÇİŞLERİ ---
 function showPage(pageId) {
     document.getElementById('flights-page').classList.add('hidden');
     document.getElementById('passengers-page').classList.add('hidden');
     document.getElementById(pageId + '-page').classList.remove('hidden');
 
-    // Aktif linki güncelle
     const links = document.querySelectorAll('.nav-links li');
     links.forEach(l => l.classList.remove('active-link'));
 
@@ -169,7 +160,6 @@ function showPage(pageId) {
 
 function logout() { location.reload(); }
 
-// --- 5. EDIT OPERATIONS ---
 let currentFlightNo = null;
 
 function editFlight(flightNo) {
@@ -239,7 +229,7 @@ function closeModal() {
     currentFlightNo = null;
 }
 
-// --- 6. ADD NEW FLIGHT ---
+//Add new flight
 function openAddModal() {
     document.getElementById('addForm').reset();
     document.getElementById('addModal').classList.remove('hidden');
@@ -285,7 +275,6 @@ function addNewFlight() {
     });
 }
 
-// Modal dışına tıklayınca kapatma
 window.onclick = function (event) {
     if (event.target == document.getElementById('editModal')) closeModal();
     if (event.target == document.getElementById('addModal')) closeAddModal();
