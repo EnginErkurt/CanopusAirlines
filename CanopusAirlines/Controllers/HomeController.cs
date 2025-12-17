@@ -138,12 +138,18 @@ namespace CanopusAirlines.Controllers
         [HttpPost]
         public ActionResult SeatSelection(BookingViewModel model)
         {
-            // Modeli tekrar doldurmamız lazım çünkü sayfalar arası sadece ID taşınır genelde
-            // Ama HiddenFor kullandığımız için veriler modelde dolu gelecek.
-
-            // Uçuş detayını tekrar çekelim (ekranda göstermek için)
+            // 1. Uçuşu Bul
             var flight = db.Flights.Find(model.OutboundFlightId);
             model.OutboundFlight = flight;
+
+            // 2. Havalimanlarını Manuel Bul (Hata Çözümü)
+            // İlişki (navigation property) kullanmak yerine doğrudan ID ile buluyoruz
+            var depAirport = db.Airports.Find(flight.departure_id);
+            var arrAirport = db.Airports.Find(flight.arrival_id);
+
+            // 3. İsimleri Modele Yükle
+            model.FromCity = depAirport.city; // Örn: Istanbul
+            model.ToCity = arrAirport.city;   // Örn: East London
 
             return View(model);
         }

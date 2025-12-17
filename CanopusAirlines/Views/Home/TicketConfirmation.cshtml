@@ -1,116 +1,93 @@
 ﻿@model CanopusAirlines.Models.TicketViewModel
 @{
-    Layout = null; 
+    ViewBag.Title = "Booking Confirmed";
+    Layout = "~/Views/Shared/_Layout.cshtml"; /* ARTIK LAYOUT KULLANIYOR */
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canopus Airlines - E-Ticket</title>
-    <link rel="stylesheet" href="@Url.Content("~/Content/TicketStyle.css")">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-</head>
-<body>
+<link rel="stylesheet" href="@Url.Content("~/Content/TicketStyle.css")">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <i class="fa-solid fa-plane-departure"></i> Canopus Airlines
-            </div>
-            <nav>
-                <a href="@Url.Action("Index", "Home")">Home</a>
-                <a href="#">Contact</a>
-            </nav>
-        </div>
-    </header>
+<div class="main-wrapper" style="padding-top: 150px; padding-bottom: 80px;">
 
-    <div class="main-wrapper">
-
-        <div class="success-message">
-            <i class="fa-solid fa-circle-check"></i>
-            <h1>Booking Confirmed!</h1>
-            <p>Your ticket (PNR: @Model.PnrCode) has been created successfully.</p>
-        </div>
-
-        <div class="ticket-container">
-            <div class="ticket-header">
-                e-Ticket Information
-            </div>
-
-            <div class="ticket-body">
-                <div class="info-grid">
-                    <div class="info-row">
-                        <span class="label">Passenger Name:</span>
-                        <span class="value">@Model.PassengerName</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="label">PNR / Ticket No:</span>
-                        <span class="value" style="color: #00bcd4;">@Model.PnrCode</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="label">Issue Date:</span>
-                        <span class="value">@Model.IssueDate.ToString("dd/MM/yyyy HH:mm")</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="label">Service:</span>
-                        <span class="value">TRAVEL</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="label">Payment Type:</span>
-                        <span class="value">CREDIT CARD</span>
-                    </div>
-                    <div class="info-row total-row" style="border-bottom: none; margin-top: 10px;">
-                        <span class="label" style="font-size: 16px;">Total Amount:</span>
-                        <span class="value" style="font-size: 18px; color: #d32f2f;">@Model.TotalAmount.ToString("N2") ₺</span>
-                    </div>
-                </div>
-
-                <hr class="divider">
-
-                <div class="flight-table-container">
-                    <table class="flight-table">
-                        <thead>
-                            <tr>
-                                <th>From</th>
-                                <th>To</th>
-                                <th>Flight No</th>
-                                <th>Seat</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var flight in Model.Flights)
-                            {
-                                <tr>
-                                    <td>@flight.From</td>
-                                    <td>@flight.To</td>
-                                    <td>@flight.FlightNo</td>
-                                    <td style="font-weight:bold; color:#00bcd4">@flight.Seat</td>
-                                    <td>@flight.Date.ToString("dd/MM/yyyy")</td>
-                                    <td>@flight.Date.ToString("HH:mm")</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="ticket-footer-logo">
-                Canopus Airlines &copy; @DateTime.Now.Year
-            </div>
-        </div>
-
-        <div class="action-area">
-            <a href="@Url.Action("Index", "Home")" class="btn-home" style="text-decoration: none;">
-                <i class="fa-solid fa-house"></i> Return to Home
-            </a>
-        </div>
-
+    <div class="success-message">
+        <i class="fa-solid fa-circle-check"></i>
+        <h1>Booking Confirmed!</h1>
+        <p>Your ticket (PNR: @Model.PnrCode) has been created successfully.</p>
     </div>
 
-</body>
-</html>
+    <div class="ticket-container">
+        <div class="ticket-header">
+            e-Ticket Information
+        </div>
+
+        <div class="ticket-body">
+            <div class="info-grid">
+                <div class="info-row">
+                    <span class="label">Passenger Name:</span>
+                    <span class="value">@Model.PassengerName</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">PNR / Ticket No:</span>
+                    <span class="value" style="color: #00bcd4;">@Model.PnrCode</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Issue Date:</span>
+                    <span class="value">@Model.IssueDate.ToString("dd/MM/yyyy HH:mm")</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Service:</span>
+                    <span class="value">TRAVEL</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Payment Type:</span>
+                    <span class="value">CREDIT CARD</span>
+                </div>
+                <div class="info-row total-row" style="border-bottom: none; margin-top: 10px;">
+                    <span class="label" style="font-size: 16px;">Total Amount:</span>
+                    <span class="value" style="font-size: 18px; color: #d32f2f;">@Model.TotalAmount.ToString("N2") ₺</span>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <div class="flight-table-container">
+                <table class="flight-table">
+                    <thead>
+                        <tr>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Flight No</th>
+                            <th>Seat</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var flight in Model.Flights)
+                        {
+                            <tr>
+                                <td>@flight.From</td>
+                                <td>@flight.To</td>
+                                <td>@flight.FlightNo</td>
+                                <td style="font-weight:bold; color:#00bcd4">@flight.Seat</td>
+                                <td>@flight.Date.ToString("dd/MM/yyyy")</td>
+                                <td>@flight.Date.ToString("HH:mm")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="ticket-footer-logo">
+            Canopus Airlines &copy; @DateTime.Now.Year
+        </div>
+    </div>
+
+    <div class="action-area" style="text-align:center; margin-top:30px;">
+        <a href="@Url.Action("Index", "Home")" class="btn-home" style="text-decoration: none; display:inline-block;">
+            <i class="fa-solid fa-house"></i> Return to Home
+        </a>
+    </div>
+
+</div>

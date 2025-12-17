@@ -25,5 +25,8 @@ namespace CanopusAirlines.Models
         // --- 3. Koltuk ve Fiyat Bilgisi ---
         public string SelectedSeat { get; set; }
         public decimal TotalPrice { get; set; }
+
+        public string FromCity { get; set; }
+        public string ToCity { get; set; }
     }
 }

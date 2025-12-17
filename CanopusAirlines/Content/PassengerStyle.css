@@ -66,8 +66,9 @@ nav a {
 
 /* Main Content Styling */
 .main-wrapper {
-    padding: 40px 20px;
-    min-height: 80vh;
+    padding-top: 150px;
+    padding-bottom: 50px; 
+    min-height: 100vh; 
 }
 
 .container {
