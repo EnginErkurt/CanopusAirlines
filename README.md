@@ -53,3 +53,6 @@ Administrators can:
 - Create, update, and delete flights
 - View all customer reservations
 - Manage flight information through an admin dashboard
+
+
+- For installation, please check AboutProject.txt file.
